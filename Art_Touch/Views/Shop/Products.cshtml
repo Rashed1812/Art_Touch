@@ -24,7 +24,7 @@
                         {
                             @foreach (var category in ViewBag.Categories)
                             {
-                                <option value="@category.Id" @@(ViewBag.CurrentCategory?.ToString() == category.Id.ToString() ? "selected" : "")>
+                                <option value="@category.Id" @(ViewBag.CurrentCategory?.ToString() == category.Id.ToString() ? "selected" : "")>
                                     @category.Name
                                 </option>
                             }
