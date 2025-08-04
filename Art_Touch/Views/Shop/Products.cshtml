@@ -9,7 +9,7 @@
         <div style="margin-bottom: 40px;">
             <h1 style="font-size: 36px; font-weight: bold; color: #333; margin-bottom: 15px; text-align: center;">Our Products</h1>
             <p style="font-size: 16px; color: #666; text-align: center; max-width: 600px; margin: 0 auto;">
-                Discover our collection of elegant women's clothing and accessories
+                Discover our collection of artistic women's clothing and accessories
             </p>
         </div>
 
@@ -69,7 +69,7 @@
                             {
                                 <span class="product-badge bestseller">Best Seller</span>
                             }
-                            <img src="@(product.Images?.Any() == true ? product.Images.First().ImageUrl : "/images/placeholder-dress.jpg")" 
+                            <img src="@(product.Images != null && product.Images.Count > 0 ? product.Images.First().ImageUrl : "/images/placeholder-dress.jpg")" 
                                  alt="@product.Name" 
                                  onerror="this.src='/images/placeholder-dress.jpg'; this.onerror=null;" />
                             <div class="product-overlay">
