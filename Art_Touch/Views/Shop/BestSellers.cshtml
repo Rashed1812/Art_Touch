@@ -33,6 +33,7 @@
                 {
                     <div class="product-card">
                         <div class="product-image">
+ cursor/fix-product-details-and-update-branding-fb72
                             @if (product.IsNewArrival)
                             {
                                 <span class="product-badge new">New</span>
@@ -41,6 +42,9 @@
                             {
                                 <span class="product-badge bestseller">Best Seller</span>
                             }
+
+                            <span class="product-badge bestseller">Best Seller</span>
+ master
                             <img src="@(product.Images != null && product.Images.Count > 0 ? product.Images.First().ImageUrl : "/images/placeholder-dress.jpg")" 
                                  alt="@product.Name" 
                                  onerror="this.src='/images/placeholder-dress.jpg'; this.onerror=null;" />
