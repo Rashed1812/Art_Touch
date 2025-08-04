@@ -4,14 +4,16 @@
     Layout = "~/Views/Shared/_ShopLayout.cshtml";
 }
 
-<div style="padding: 80px 0; background: #f8f9fa; min-height: 80vh;">
+<!-- Page Header -->
+<div class="page-header">
     <div class="container">
-        <div style="margin-bottom: 40px; text-align: center;">
-            <h1 style="font-size: 36px; font-weight: bold; color: #333; margin-bottom: 15px;">New Arrivals</h1>
-            <p style="font-size: 16px; color: #666; max-width: 600px; margin: 0 auto;">
-                Discover the latest additions to our collection. Fresh styles, new trends, and must-have pieces for the modern woman.
-            </p>
-        </div>
+        <h1>New Arrivals</h1>
+        <p>Discover the latest additions to our collection. Fresh styles, new trends, and must-have pieces for the modern woman.</p>
+    </div>
+</div>
+
+<div style="padding: 0 0 80px; background: #f8f9fa; min-height: 60vh;">
+    <div class="container">
 
         @if (!Model.Any())
         {
@@ -31,20 +33,33 @@
                 {
                     <div class="product-card">
                         <div class="product-image">
+ cursor/fix-product-details-and-update-branding-fb72
+                            @if (product.IsNewArrival)
+                            {
+                                <span class="product-badge new">New</span>
+                            }
+                            @if (product.IsBestseller)
+                            {
+                                <span class="product-badge bestseller">Best Seller</span>
+                            }
+
                             <span class="product-badge new">New</span>
+ master
                             <img src="@(product.Images != null && product.Images.Count > 0 ? product.Images.First().ImageUrl : "/images/placeholder-dress.jpg")" 
                                  alt="@product.Name" 
                                  onerror="this.src='/images/placeholder-dress.jpg'; this.onerror=null;" />
                             <div class="product-overlay">
-                                <a href="@Url.Action("ProductDetails", "Shop", new { id = product.Id })" class="btn btn-view">View Details</a>
-                                <button class="btn btn-add-to-cart" data-product-id="@product.Id" style="background: #e91e63; color: white; border: none; padding: 8px 20px; border-radius: 5px; margin-top: 10px; cursor: pointer;">
+                                <a href="@Url.Action("ProductDetails", "Shop", new { id = product.Id })" class="btn-view-details">
+                                    <i class="fas fa-eye"></i> View Details
+                                </a>
+                                <button class="btn-add-to-cart" data-product-id="@product.Id">
                                     <i class="fas fa-shopping-cart"></i> Add to Cart
                                 </button>
                             </div>
                         </div>
                         <div class="product-info">
                             <h3>@product.Name</h3>
-                            <p class="product-category">@product.Category?.Name</p>
+                            <p class="product-category">@(string.IsNullOrEmpty(product.Description) ? product.Category?.Name : product.Description)</p>
                             <div class="product-price">
                                 @if (product.DiscountPrice.HasValue)
                                 {

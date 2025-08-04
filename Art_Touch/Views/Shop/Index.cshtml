@@ -38,17 +38,31 @@
                     {
                     <div class="product-card">
                         <div class="product-image">
+cursor/fix-product-details-and-update-branding-fb72
+                            @if (product.IsNewArrival)
+                            {
+                                <span class="product-badge new">New</span>
+                            }
+                            @if (product.IsBestseller)
+                            {
+                                <span class="product-badge bestseller">Best Seller</span>
+                            }
+                            <img src="@(product.Images != null && product.Images.Count > 0 ? product.Images.First().ImageUrl : "/images/placeholder-dress.jpg")" 
+
                             <span class="product-badge new">New</span>
                                                             <img src="@(product.Images != null && product.Images.Count > 0 ? product.Images.First().ImageUrl : "/images/placeholder-dress.jpg")" 
+ master
                                  alt="@product.Name" 
                                  onerror="this.src='/images/placeholder-dress.jpg'; this.onerror=null;" />
                             <div class="product-overlay">
-                                <a href="@Url.Action("ProductDetails", "Shop", new { id = product.Id })" class="btn btn-view">View Details</a>
+                                <a href="@Url.Action("ProductDetails", "Shop", new { id = product.Id })" class="btn-view-details">
+                                    <i class="fas fa-eye"></i> View Details
+                                </a>
                             </div>
                         </div>
                         <div class="product-info">
                             <h3>@product.Name</h3>
-                            <p class="product-category">@product.Category?.Name</p>
+                            <p class="product-category">@(string.IsNullOrEmpty(product.Description) ? product.Category?.Name : product.Description)</p>
                             <div class="product-price">
                                 @if (product.DiscountPrice.HasValue)
                                 {
