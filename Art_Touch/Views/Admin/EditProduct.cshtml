@@ -1,0 +1,482 @@
+@model DAL.Data.Models.Product
+@{
+    ViewData["Title"] = "Edit Product";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="admin-content">
+    <div class="content-header">
+        <h1>Edit Product</h1>
+        <a href="@Url.Action("Products", "Admin")" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Products
+        </a>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-circle"></i> @TempData["SuccessMessage"]
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="fas fa-exclamation-triangle"></i> @TempData["ErrorMessage"]
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+    <div class="content-body">
+        <form method="post" enctype="multipart/form-data" class="product-form" id="editProductForm">
+            <input type="hidden" asp-for="Id" />
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5><i class="fas fa-info-circle"></i> Product Information</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="Name">Product Name *</label>
+                                <input type="text" class="form-control" id="Name" name="Name" value="@(Model?.Name ?? "")" required />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Description">Description</label>
+                                <textarea class="form-control" id="Description" name="Description" rows="4" placeholder="Enter product description...">@(Model?.Description ?? "")</textarea>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="OriginalPrice">Original Price *</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">$</span>
+                                            </div>
+                                            <input type="number" step="0.01" class="form-control" id="OriginalPrice" name="OriginalPrice" value="@(Model?.OriginalPrice.ToString() ?? "")" required />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="DiscountPrice">Discount Price</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">$</span>
+                                            </div>
+                                            <input type="number" step="0.01" class="form-control" id="DiscountPrice" name="DiscountPrice" value="@(Model?.DiscountPrice?.ToString() ?? "")" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="CategoryId">Category *</label>
+                                <select class="form-control" id="CategoryId" name="CategoryId" required>
+                                    <option value="">Select a category</option>
+                                    @if (ViewBag.Categories != null)
+                                    {
+                                        @foreach (var category in ViewBag.Categories)
+                                        {
+                                            if (category.Id == (Model?.CategoryId ?? 0))
+                                            {
+                                                <option value="@category.Id" selected>@category.Name</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@category.Id">@category.Name</option>
+                                            }
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mt-3">
+                        <div class="card-header">
+                            <h5><i class="fas fa-images"></i> Product Images</h5>
+                        </div>
+                        <div class="card-body">
+                            @if (Model?.Images != null && Model.Images.Any())
+                            {
+                                <div class="row mb-3">
+                                    <div class="col-12">
+                                        <h6>Current Images:</h6>
+                                    </div>
+                                    @foreach (var image in Model.Images)
+                                    {
+                                        <div class="col-md-3 mb-2">
+                                            <div class="current-image-item">
+                                                <img src="@image.ImageUrl" 
+                                                     class="img-fluid rounded" 
+                                                     style="max-height: 100px; width: 100%; object-fit: cover;" 
+                                                     onerror="this.src='/images/placeholder-dress.jpg'; this.onerror=null;"
+                                                     alt="@(image.IsCover ? "Cover" : "Gallery") Image" />
+                                                <div class="image-overlay">
+                                                    <small class="text-white">@(image.IsCover ? "Cover" : "Gallery")</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="coverImage">New Cover Image</label>
+                                        <input type="file" class="form-control-file" id="coverImage" name="coverImage" accept="image/*" />
+                                        <small class="form-text text-muted">
+                                            Upload a new cover image to replace the current one.
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="additionalImages">Add More Images</label>
+                                        <input type="file" class="form-control-file" id="additionalImages" name="additionalImages" multiple accept="image/*" />
+                                        <small class="form-text text-muted">
+                                            Add more images to the product gallery.
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <div class="image-preview-container">
+                                        <h6>New Images Preview:</h6>
+                                        <div class="row" id="imagePreviewContainer">
+                                            <div class="col-md-3 mb-2">
+                                                <div class="image-preview-item" id="coverImagePreview">
+                                                    <div class="image-placeholder">
+                                                        <i class="fas fa-image"></i>
+                                                        <small>New Cover</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <div class="row" id="additionalImagesPreview">
+                                                    <div class="col-md-3 mb-2">
+                                                        <div class="image-preview-item">
+                                                            <div class="image-placeholder">
+                                                                <i class="fas fa-plus"></i>
+                                                                <small>Add Image</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mt-3">
+                        <div class="card-header">
+                            <h5><i class="fas fa-ruler"></i> Product Sizes & Stock</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label>Available Sizes and Quantities</label>
+                                <div id="sizesContainer">
+                                    @if (Model?.Sizes != null && Model.Sizes.Any())
+                                    {
+                                        @for (int i = 0; i < Model.Sizes.Count; i++)
+                                        {
+                                            <div class="size-row row mb-2">
+                                                <div class="col-md-4">
+                                                    <input type="text" class="form-control" name="Sizes[@i].Size" value="@Model.Sizes.ElementAt(i).Size" placeholder="Size (e.g., S, M, L, XL)" required />
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input type="number" class="form-control" name="Sizes[@i].QuantityInStock" value="@Model.Sizes.ElementAt(i).QuantityInStock" placeholder="Quantity" min="0" required />
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <button type="button" class="btn btn-danger btn-sm remove-size" @(Model.Sizes.Count == 1 ? "style=display:none;" : "")>
+                                                        <i class="fas fa-trash"></i> Remove
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <div class="size-row row mb-2">
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control" name="Sizes[0].Size" placeholder="Size (e.g., S, M, L, XL)" required />
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="number" class="form-control" name="Sizes[0].QuantityInStock" placeholder="Quantity" min="0" required />
+                                            </div>
+                                            <div class="col-md-4">
+                                                <button type="button" class="btn btn-danger btn-sm remove-size" style="display: none;">
+                                                    <i class="fas fa-trash"></i> Remove
+                                                </button>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                                <button type="button" class="btn btn-success btn-sm" id="addSizeBtn">
+                                    <i class="fas fa-plus"></i> Add Another Size
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5><i class="fas fa-cog"></i> Product Settings</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="IsActive" name="IsActive" value="true" @(Model?.IsActive == true ? "checked" : "") />
+                                    <input type="hidden" name="IsActive" value="false" />
+                                    <label class="form-check-label" for="IsActive">
+                                        <i class="fas fa-check-circle"></i> Active
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="IsNewArrival" name="IsNewArrival" value="true" @(Model?.IsNewArrival == true ? "checked" : "") />
+                                    <input type="hidden" name="IsNewArrival" value="false" />
+                                    <label class="form-check-label" for="IsNewArrival">
+                                        <i class="fas fa-star"></i> New Arrival
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="IsBestseller" name="IsBestseller" value="true" @(Model?.IsBestseller == true ? "checked" : "") />
+                                    <input type="hidden" name="IsBestseller" value="false" />
+                                    <label class="form-check-label" for="IsBestseller">
+                                        <i class="fas fa-fire"></i> Best Seller
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mt-3">
+                        <div class="card-header">
+                            <h5><i class="fas fa-save"></i> Actions</h5>
+                        </div>
+                        <div class="card-body">
+                            <button type="submit" class="btn btn-primary btn-block">
+                                <i class="fas fa-save"></i> Update Product
+                            </button>
+                            <a href="@Url.Action("Products", "Admin")" class="btn btn-secondary btn-block">
+                                <i class="fas fa-times"></i> Cancel
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            let sizeIndex = @(Model?.Sizes?.Count ?? 1);
+            
+            // Add new size row
+            $('#addSizeBtn').click(function() {
+                const newRow = `
+                    <div class="size-row row mb-2">
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" name="Sizes[${sizeIndex}].Size" placeholder="Size (e.g., S, M, L, XL)" required />
+                        </div>
+                        <div class="col-md-4">
+                            <input type="number" class="form-control" name="Sizes[${sizeIndex}].QuantityInStock" placeholder="Quantity" min="0" required />
+                        </div>
+                        <div class="col-md-4">
+                            <button type="button" class="btn btn-danger btn-sm remove-size">
+                                <i class="fas fa-trash"></i> Remove
+                            </button>
+                        </div>
+                    </div>
+                `;
+                $('#sizesContainer').append(newRow);
+                sizeIndex++;
+                
+                // Show remove button for first row if there are multiple rows
+                if ($('.size-row').length > 1) {
+                    $('.remove-size').show();
+                }
+            });
+            
+            // Remove size row
+            $(document).on('click', '.remove-size', function() {
+                $(this).closest('.size-row').remove();
+                
+                // Hide remove button if only one row remains
+                if ($('.size-row').length === 1) {
+                    $('.remove-size').hide();
+                }
+                
+                // Reindex the remaining rows
+                $('.size-row').each(function(index) {
+                    $(this).find('input').each(function() {
+                        const name = $(this).attr('name');
+                        if (name) {
+                            const newName = name.replace(/\[\d+\]/, `[${index}]`);
+                            $(this).attr('name', newName);
+                        }
+                    });
+                });
+                sizeIndex = $('.size-row').length;
+            });
+            
+            // Image preview functionality
+            $('#coverImage').change(function() {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('#coverImagePreview').html(`
+                            <img src="${e.target.result}" class="img-fluid rounded" style="max-height: 150px; width: 100%; object-fit: cover;" />
+                            <div class="image-overlay">
+                                <small class="text-white">New Cover</small>
+                            </div>
+                        `);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            $('#additionalImages').change(function() {
+                const files = this.files;
+                $('#additionalImagesPreview').empty();
+                
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        const imageHtml = `
+                            <div class="col-md-3 mb-2">
+                                <div class="image-preview-item">
+                                    <img src="${e.target.result}" class="img-fluid rounded" style="max-height: 100px; width: 100%; object-fit: cover;" />
+                                    <div class="image-overlay">
+                                        <small class="text-white">New Image ${i + 1}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        $('#additionalImagesPreview').append(imageHtml);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            // Form validation
+            $('#editProductForm').submit(function(e) {
+                let isValid = true;
+                
+                // Check if at least one size is added
+                if ($('.size-row').length === 0) {
+                    alert('Please add at least one size for the product.');
+                    isValid = false;
+                }
+                
+                // Validate size inputs
+                $('.size-row').each(function() {
+                    const size = $(this).find('input[name*="Size"]').val();
+                    const quantity = $(this).find('input[name*="QuantityInStock"]').val();
+                    
+                    if (!size || !quantity) {
+                        alert('Please fill in both size and quantity for all size rows.');
+                        isValid = false;
+                        return false;
+                    }
+                });
+                
+                if (!isValid) {
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
+    
+    <style>
+        .image-preview-container {
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            padding: 15px;
+            background: #f8f9fa;
+        }
+        
+        .image-preview-item {
+            position: relative;
+            border: 2px dashed #dee2e6;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .image-preview-item:hover {
+            border-color: #667eea;
+        }
+        
+        .image-placeholder {
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+            background: #f8f9fa;
+        }
+        
+        .image-placeholder i {
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+        
+        .image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            padding: 5px;
+            text-align: center;
+        }
+        
+        .image-preview-item img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+        }
+        
+        .current-image-item {
+            position: relative;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .current-image-item img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+        }
+    </style>
+} 

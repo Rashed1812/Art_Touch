@@ -1,0 +1,218 @@
+@{
+    ViewData["Title"] = "Elegant Women's Fashion";
+    Layout = "~/Views/Shared/_ShopLayout.cshtml";
+}
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="hero-content">
+        <div class="hero-text">
+            <h1>Summer Collection 2023</h1>
+            <p>Discover the season's most coveted styles. Effortless elegance for the modern woman.</p>
+            <div class="hero-buttons">
+                <a href="@Url.Action("Products", "Shop")" class="btn btn-primary">Shop Now</a>
+                <a href="@Url.Action("NewArrivals", "Shop")" class="btn btn-secondary">View Lookbook</a>
+            </div>
+        </div>
+    </div>
+    <div class="hero-image">
+        <img src="/images/hero-dress.jpg" alt="Summer Collection" />
+    </div>
+</section>
+
+<!-- New Arrivals Section -->
+<section class="new-arrivals-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>New Arrivals</h2>
+            <p>The latest additions to our collection, featuring this season's must-have pieces.</p>
+        </div>
+        
+        <div class="products-grid">
+            @if (ViewBag.NewArrivals != null)
+            {
+                var newArrivals = ViewBag.NewArrivals as List<DAL.Data.Models.Product>;
+                if (newArrivals != null)
+                {
+                    foreach (var product in newArrivals.Take(4))
+                    {
+                    <div class="product-card">
+                        <div class="product-image">
+                            <span class="product-badge new">New</span>
+                            <img src="@(product.Images?.Any() == true ? product.Images.First().ImageUrl : "/images/placeholder-dress.jpg")" 
+                                 alt="@product.Name" 
+                                 onerror="this.src='/images/placeholder-dress.jpg'; this.onerror=null;" />
+                            <div class="product-overlay">
+                                <a href="@Url.Action("ProductDetails", "Shop", new { id = product.Id })" class="btn btn-view">View Details</a>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>@product.Name</h3>
+                            <p class="product-category">@product.Category?.Name</p>
+                            <div class="product-price">
+                                @if (product.DiscountPrice.HasValue)
+                                {
+                                    <span class="price-current">$@product.DiscountPrice.Value.ToString("F2")</span>
+                                    <span class="price-original">$@product.OriginalPrice.ToString("F2")</span>
+                                }
+                                else
+                                {
+                                    <span class="price-current">$@product.OriginalPrice.ToString("F2")</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+                }
+            }
+            else
+            {
+                <!-- Placeholder products -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge new">New</span>
+                        <img src="/images/placeholder-dress.jpg" alt="Lace Detail Blouse" />
+                        <div class="product-overlay">
+                            <a href="#" class="btn btn-view">View Details</a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Lace Detail Blouse</h3>
+                        <p class="product-category">Elegant white blouse with delicate lace details</p>
+                        <div class="product-price">
+                            <span class="price-current">$49.99</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge new">New</span>
+                        <img src="/images/placeholder-dress.jpg" alt="Floral Midi Dress" />
+                        <div class="product-overlay">
+                            <a href="#" class="btn btn-view">View Details</a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Floral Midi Dress</h3>
+                        <p class="product-category">Stunning floral pattern with flattering silhouette</p>
+                        <div class="product-price">
+                            <span class="price-current">$79.99</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge new">New</span>
+                        <img src="/images/placeholder-dress.jpg" alt="Wide Leg Trousers" />
+                        <div class="product-overlay">
+                            <a href="#" class="btn btn-view">View Details</a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Wide Leg Trousers</h3>
+                        <p class="product-category">High-waisted design with flowing silhouette</p>
+                        <div class="product-price">
+                            <span class="price-current">$65.99</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge new">New</span>
+                        <img src="/images/placeholder-dress.jpg" alt="Pearl Button Cardigan" />
+                        <div class="product-overlay">
+                            <a href="#" class="btn btn-view">View Details</a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Pearl Button Cardigan</h3>
+                        <p class="product-category">Soft knit with elegant pearl button details</p>
+                        <div class="product-price">
+                            <span class="price-current">$54.99</span>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        
+        <div class="section-footer">
+            <a href="@Url.Action("NewArrivals", "Shop")" class="btn btn-outline">View All New Arrivals</a>
+        </div>
+    </div>
+</section>
+
+<!-- Best Sellers Section -->
+<section class="best-sellers-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Best Sellers</h2>
+            <p>Our most loved pieces that customers can't get enough of.</p>
+        </div>
+        
+        <div class="products-grid">
+            <!-- Similar structure as New Arrivals but with best seller products -->
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="product-badge bestseller">Best Seller</span>
+                    <img src="/images/placeholder-dress.jpg" alt="Floral Summer Dress" />
+                    <div class="product-overlay">
+                        <a href="#" class="btn btn-view">View Details</a>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3>Floral Summer Dress</h3>
+                    <p class="product-category">Perfect for summer days and special occasions</p>
+                    <div class="product-price">
+                        <span class="price-current">$89.99</span>
+                        <span class="price-original">$129.99</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Add more best seller products here -->
+        </div>
+        
+        <div class="section-footer">
+            <a href="@Url.Action("BestSellers", "Shop")" class="btn btn-outline">View All Best Sellers</a>
+        </div>
+    </div>
+</section>
+
+<!-- Instagram Section -->
+<section class="instagram-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Follow Us on Instagram</h2>
+            <p>Tag your photos with #ElegantStyle for a chance to be featured!</p>
+        </div>
+        
+        <div class="instagram-grid">
+            <div class="instagram-item">
+                <img src="/images/instagram-1.jpg" alt="Instagram Post" />
+            </div>
+            <div class="instagram-item">
+                <img src="/images/instagram-2.jpg" alt="Instagram Post" />
+            </div>
+            <div class="instagram-item">
+                <img src="/images/instagram-3.jpg" alt="Instagram Post" />
+            </div>
+            <div class="instagram-item">
+                <img src="/images/instagram-4.jpg" alt="Instagram Post" />
+            </div>
+            <div class="instagram-item">
+                <img src="/images/instagram-5.jpg" alt="Instagram Post" />
+            </div>
+            <div class="instagram-item">
+                <img src="/images/instagram-6.jpg" alt="Instagram Post" />
+            </div>
+        </div>
+        
+        <div class="section-footer">
+            <a href="#" class="btn btn-instagram">Follow @@ElegantStyle</a>
+        </div>
+    </div>
+</section>
+

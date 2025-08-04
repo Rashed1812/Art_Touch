@@ -1,0 +1,91 @@
+@model DAL.Data.Models.Order
+@{
+    ViewData["Title"] = "Order Confirmation";
+    Layout = "~/Views/Shared/_ShopLayout.cshtml";
+}
+
+<div style="padding: 80px 0; background: linear-gradient(135deg, #fce4ec, #f8bbd9); min-height: 80vh;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div style="background: white; border-radius: 15px; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center;">
+                    <div style="margin-bottom: 30px;">
+                        <i class="fas fa-check-circle" style="font-size: 64px; color: #4caf50; margin-bottom: 20px;"></i>
+                        <h1 style="font-size: 36px; font-weight: bold; color: #333; margin-bottom: 15px;">Thank You!</h1>
+                        <p style="font-size: 18px; color: #666; margin-bottom: 10px;">Your order has been placed successfully.</p>
+                        <p style="font-size: 16px; color: #999;">Order #@Model.Id</p>
+                    </div>
+                    
+                    <div style="background: #f8f9fa; border-radius: 10px; padding: 25px; margin-bottom: 30px;">
+                        <h3 style="font-size: 20px; font-weight: bold; color: #333; margin-bottom: 20px;">Order Details</h3>
+                        
+                        <div class="row text-start">
+                            <div class="col-md-6">
+                                <p style="margin-bottom: 8px;"><strong>Order Date:</strong> @Model.OrderDate.ToString("MMMM dd, yyyy")</p>
+                                <p style="margin-bottom: 8px;"><strong>Order Status:</strong> 
+                                    <span style="color: #e91e63; font-weight: 500;">@Model.Status</span>
+                                </p>
+                                <p style="margin-bottom: 8px;"><strong>Total Amount:</strong> 
+                                    <span style="color: #e91e63; font-weight: bold; font-size: 18px;">$@Model.TotalAmount</span>
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <p style="margin-bottom: 8px;"><strong>Shipping Address:</strong></p>
+                                <p style="color: #666; font-size: 14px; line-height: 1.4;">@Model.ShippingAddress</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 30px;">
+                        <h3 style="font-size: 20px; font-weight: bold; color: #333; margin-bottom: 20px;">What's Next?</h3>
+                        <div class="row">
+                            <div class="col-md-4 text-center mb-3">
+                                <div style="background: #e3f2fd; border-radius: 10px; padding: 20px; height: 100%;">
+                                    <i class="fas fa-envelope" style="font-size: 32px; color: #2196f3; margin-bottom: 15px;"></i>
+                                    <h4 style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 10px;">Order Confirmation</h4>
+                                    <p style="font-size: 14px; color: #666;">You'll receive an email confirmation shortly.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 text-center mb-3">
+                                <div style="background: #f3e5f5; border-radius: 10px; padding: 20px; height: 100%;">
+                                    <i class="fas fa-box" style="font-size: 32px; color: #9c27b0; margin-bottom: 15px;"></i>
+                                    <h4 style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 10px;">Processing</h4>
+                                    <p style="font-size: 14px; color: #666;">We'll start processing your order right away.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 text-center mb-3">
+                                <div style="background: #e8f5e8; border-radius: 10px; padding: 20px; height: 100%;">
+                                    <i class="fas fa-truck" style="font-size: 32px; color: #4caf50; margin-bottom: 15px;"></i>
+                                    <h4 style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 10px;">Shipping</h4>
+                                    <p style="font-size: 14px; color: #666;">You'll get tracking info once it ships.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 10px; padding: 20px; margin-bottom: 30px;">
+                        <h4 style="font-size: 18px; font-weight: 600; color: #856404; margin-bottom: 10px;">
+                            <i class="fas fa-info-circle" style="margin-right: 8px;"></i>
+                            Important Information
+                        </h4>
+                        <ul style="text-align: left; color: #856404; margin: 0; padding-left: 20px;">
+                            <li>Please allow 1-2 business days for order processing</li>
+                            <li>Standard shipping takes 3-5 business days</li>
+                            <li>You'll receive email updates about your order status</li>
+                            <li>For any questions, contact our customer service</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                        <a href="@Url.Action("Index", "Shop")" class="btn" style="background: #e91e63; color: white; padding: 12px 30px; border-radius: 25px; text-decoration: none; font-weight: 500;">
+                            Continue Shopping
+                        </a>
+                        <a href="mailto:support@arttouch.com" class="btn" style="border: 2px solid #e91e63; color: #e91e63; padding: 12px 30px; border-radius: 25px; text-decoration: none; font-weight: 500; background: transparent;">
+                            Contact Support
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

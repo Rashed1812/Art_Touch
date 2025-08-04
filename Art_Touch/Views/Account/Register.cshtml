@@ -1,0 +1,81 @@
+@model Art_Touch.ViewModels.RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_ShopLayout.cshtml";
+}
+
+<div style="min-height: 80vh; display: flex; align-items: center; background: linear-gradient(135deg, #fce4ec, #f8bbd9);">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div style="background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                    <div class="text-center mb-4">
+                        <h2 style="font-size: 32px; font-weight: bold; color: #333; margin-bottom: 10px;">Create Account</h2>
+                        <p style="color: #666;">Join our fashion community</p>
+                    </div>
+
+                    <form asp-action="Register" asp-controller="Account" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="FirstName" class="form-label" style="font-weight: 500; color: #333;">First Name</label>
+                                <input asp-for="FirstName" class="form-control" style="padding: 12px; border-radius: 8px; border: 1px solid #ddd;" placeholder="Enter first name" />
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="LastName" class="form-label" style="font-weight: 500; color: #333;">Last Name</label>
+                                <input asp-for="LastName" class="form-control" style="padding: 12px; border-radius: 8px; border: 1px solid #ddd;" placeholder="Enter last name" />
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label" style="font-weight: 500; color: #333;">Email Address</label>
+                            <input asp-for="Email" class="form-control" style="padding: 12px; border-radius: 8px; border: 1px solid #ddd;" placeholder="Enter your email" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="Phone" class="form-label" style="font-weight: 500; color: #333;">Phone Number</label>
+                            <input asp-for="Phone" class="form-control" style="padding: 12px; border-radius: 8px; border: 1px solid #ddd;" placeholder="Enter phone number" />
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="Password" class="form-label" style="font-weight: 500; color: #333;">Password</label>
+                            <input asp-for="Password" type="password" class="form-control" style="padding: 12px; border-radius: 8px; border: 1px solid #ddd;" placeholder="Create a password" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="ConfirmPassword" class="form-label" style="font-weight: 500; color: #333;">Confirm Password</label>
+                            <input asp-for="ConfirmPassword" type="password" class="form-control" style="padding: 12px; border-radius: 8px; border: 1px solid #ddd;" placeholder="Confirm your password" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-3 form-check">
+                            <input asp-for="AgreeToTerms" type="checkbox" class="form-check-input" />
+                            <label asp-for="AgreeToTerms" class="form-check-label" style="color: #666;">
+                                I agree to the <a href="#" style="color: #e91e63;">Terms of Service</a> and <a href="#" style="color: #e91e63;">Privacy Policy</a>
+                            </label>
+                            <span asp-validation-for="AgreeToTerms" class="text-danger"></span>
+                        </div>
+                        
+                        <button type="submit" class="btn w-100" style="background: #e91e63; color: white; padding: 12px; border-radius: 8px; font-weight: 500; border: none;">
+                            Create Account
+                        </button>
+                    </form>
+                    
+                    <div class="text-center mt-4">
+                        <p style="color: #666; margin-bottom: 15px;">Already have an account?</p>
+                        <a href="@Url.Action("Login", "Account")" class="btn btn-outline" style="border: 2px solid #e91e63; color: #e91e63; padding: 10px 30px; border-radius: 8px; text-decoration: none; font-weight: 500;">
+                            Sign In
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

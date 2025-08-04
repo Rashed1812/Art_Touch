@@ -1,0 +1,244 @@
+@model DAL.Data.Models.Product
+@{
+    ViewData["Title"] = Model.Name;
+    Layout = "~/Views/Shared/_ShopLayout.cshtml";
+}
+
+<div style="padding: 80px 0; background: #f8f9fa; min-height: 80vh;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div style="background: white; border-radius: 15px; padding: 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+                    <div class="product-gallery">
+                        <div class="main-image" style="margin-bottom: 20px;">
+                            <img id="mainImage" src="@(Model.Images?.Any() == true ? Model.Images.First().ImageUrl : "/images/placeholder-dress.jpg")" 
+                                 alt="@Model.Name" 
+                                 style="width: 100%; height: 400px; object-fit: cover; border-radius: 10px;" 
+                                 onerror="this.src='/images/placeholder-dress.jpg'; this.onerror=null;" />
+                        </div>
+                        
+                        @if (Model.Images?.Count() > 1)
+                        {
+                            <div class="thumbnail-images" style="display: flex; gap: 10px; justify-content: center;">
+                                @foreach (var image in Model.Images.Take(4))
+                                {
+                                    <img src="@image.ImageUrl" 
+                                         alt="@Model.Name" 
+                                         class="thumbnail" 
+                                         style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px; cursor: pointer; border: 2px solid transparent;"
+                                         onclick="changeMainImage(this.src)" 
+                                         onerror="this.src='/images/placeholder-dress.jpg'; this.onerror=null;" />
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6">
+                <div style="background: white; border-radius: 15px; padding: 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+                    <div class="product-info">
+                        @if (Model.IsNewArrival)
+                        {
+                            <span class="product-badge new" style="display: inline-block; margin-bottom: 15px;">New Arrival</span>
+                        }
+                        @if (Model.IsBestseller)
+                        {
+                            <span class="product-badge bestseller" style="display: inline-block; margin-bottom: 15px;">Best Seller</span>
+                        }
+                        
+                        <h1 style="font-size: 32px; font-weight: bold; color: #333; margin-bottom: 15px;">@Model.Name</h1>
+                        <p style="color: #666; margin-bottom: 20px;">@Model.Category?.Name</p>
+                        
+                        <div class="product-price" style="margin-bottom: 25px;">
+                            @if (Model.DiscountPrice.HasValue)
+                            {
+                                <span class="price-current" style="font-size: 28px; font-weight: bold; color: #e91e63;">$@Model.DiscountPrice.Value.ToString("F2")</span>
+                                <span class="price-original" style="font-size: 18px; color: #999; text-decoration: line-through; margin-left: 10px;">$@Model.OriginalPrice.ToString("F2")</span>
+                                <span style="background: #e91e63; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px; margin-left: 10px;">
+                                    @(((Model.OriginalPrice - Model.DiscountPrice.Value) / Model.OriginalPrice * 100).ToString("F0"))% OFF
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="price-current" style="font-size: 28px; font-weight: bold; color: #e91e63;">$@Model.OriginalPrice.ToString("F2")</span>
+                            }
+                        </div>
+                        
+                        <div class="product-description" style="margin-bottom: 25px;">
+                            <h3 style="font-size: 18px; font-weight: 600; color: #333; margin-bottom: 10px;">Description</h3>
+                            <p style="color: #666; line-height: 1.6;">@Model.Description</p>
+                        </div>
+                        
+                        <div class="product-options" style="margin-bottom: 25px;">
+                            <h3 style="font-size: 18px; font-weight: 600; color: #333; margin-bottom: 15px;">Select Size</h3>
+                            <div class="size-options" style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                @if (Model.Sizes?.Any() == true)
+                                {
+                                    @foreach (var size in Model.Sizes)
+                                    {
+                                        <label style="display: inline-block;">
+                                            <input type="radio" name="size" value="@size.Size" style="display: none;" />
+                                            <span class="size-option" style="display: inline-block; padding: 10px 15px; border: 2px solid #ddd; border-radius: 8px; cursor: pointer; transition: all 0.3s ease;">
+                                                @size.Size
+                                            </span>
+                                        </label>
+                                    }
+                                }
+                                else
+                                {
+                                    <span style="color: #999; font-style: italic;">Size information not available</span>
+                                }
+                            </div>
+                        </div>
+                        
+                        <div class="product-actions">
+                            <div style="display: flex; gap: 15px; align-items: center; margin-bottom: 20px;">
+                                <label for="quantity" style="font-weight: 500; color: #333;">Quantity:</label>
+                                <div style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 8px;">
+                                    <button type="button" id="decreaseQuantity" style="border: none; background: none; padding: 10px 15px; cursor: pointer;">-</button>
+                                    <input type="number" id="quantity" value="1" min="1" style="border: none; text-align: center; width: 60px; padding: 10px;" />
+                                    <button type="button" id="increaseQuantity" style="border: none; background: none; padding: 10px 15px; cursor: pointer;">+</button>
+                                </div>
+                            </div>
+                            
+                            <button id="addToCartBtn" class="btn w-100" style="background: #e91e63; color: white; padding: 15px; border-radius: 8px; border: none; font-weight: 500; font-size: 16px; margin-bottom: 15px;">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            
+                            <button class="btn w-100" style="border: 2px solid #e91e63; color: #e91e63; padding: 15px; border-radius: 8px; background: transparent; font-weight: 500; font-size: 16px;">
+                                <i class="fas fa-heart"></i> Add to Wishlist
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        @if (ViewBag.RelatedProducts?.Count > 0)
+        {
+            <div style="margin-top: 60px;">
+                <h2 style="font-size: 28px; font-weight: bold; color: #333; margin-bottom: 30px; text-align: center;">You Might Also Like</h2>
+                <div class="products-grid">
+                    @foreach (var relatedProduct in ViewBag.RelatedProducts)
+                    {
+                        <div class="product-card">
+                            <div class="product-image">
+                                @if (relatedProduct.IsNewArrival)
+                                {
+                                    <span class="product-badge new">New</span>
+                                }
+                                @if (relatedProduct.IsBestseller)
+                                {
+                                    <span class="product-badge bestseller">Best Seller</span>
+                                }
+                                <img src="@(relatedProduct.Images?.Any() == true ? relatedProduct.Images.First().ImageUrl : "/images/placeholder-dress.jpg")" 
+                                     alt="@relatedProduct.Name" 
+                                     onerror="this.src='/images/placeholder-dress.jpg'; this.onerror=null;" />
+                                <div class="product-overlay">
+                                    <a href="@Url.Action("ProductDetails", "Shop", new { id = relatedProduct.Id })" class="btn btn-view">View Details</a>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3>@relatedProduct.Name</h3>
+                                <p class="product-category">@relatedProduct.Category?.Name</p>
+                                <div class="product-price">
+                                    @if (relatedProduct.DiscountPrice.HasValue)
+                                    {
+                                        <span class="price-current">$@relatedProduct.DiscountPrice.Value.ToString("F2")</span>
+                                        <span class="price-original">$@relatedProduct.OriginalPrice.ToString("F2")</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="price-current">$@relatedProduct.OriginalPrice.ToString("F2")</span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Size selection
+    const sizeOptions = document.querySelectorAll('.size-option');
+    sizeOptions.forEach(option => {
+        option.addEventListener('click', function() {
+            // Remove active class from all options
+            sizeOptions.forEach(opt => opt.style.borderColor = '#ddd');
+            sizeOptions.forEach(opt => opt.style.background = 'transparent');
+            
+            // Add active class to clicked option
+            this.style.borderColor = '#e91e63';
+            this.style.background = '#fce4ec';
+            
+            // Check the radio button
+            this.previousElementSibling.checked = true;
+        });
+    });
+    
+    // Quantity controls
+    const quantityInput = document.getElementById('quantity');
+    const decreaseBtn = document.getElementById('decreaseQuantity');
+    const increaseBtn = document.getElementById('increaseQuantity');
+    
+    decreaseBtn.addEventListener('click', function() {
+        const currentValue = parseInt(quantityInput.value);
+        if (currentValue > 1) {
+            quantityInput.value = currentValue - 1;
+        }
+    });
+    
+    increaseBtn.addEventListener('click', function() {
+        const currentValue = parseInt(quantityInput.value);
+        quantityInput.value = currentValue + 1;
+    });
+    
+    // Add to cart
+    const addToCartBtn = document.getElementById('addToCartBtn');
+    addToCartBtn.addEventListener('click', function() {
+        const selectedSize = document.querySelector('input[name="size"]:checked')?.value || '';
+        const quantity = parseInt(quantityInput.value);
+        const productId = @Model.Id;
+        
+        if (!selectedSize) {
+            alert('Please select a size');
+            return;
+        }
+        
+        fetch('@Url.Action("AddToCart", "Shop")', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `productId=${productId}&size=${selectedSize}&quantity=${quantity}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Update cart count
+                const cartCount = document.querySelector('.cart-count');
+                if (cartCount) {
+                    cartCount.textContent = data.cartCount;
+                }
+                
+                // Show success message
+                this.innerHTML = '<i class="fas fa-check"></i> Added to Cart!';
+                this.style.background = '#4caf50';
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-shopping-cart"></i> Add to Cart';
+                    this.style.background = '#e91e63';
+                }, 2000);
+            }
+        });
+    });
+});
+
+function changeMainImage(src) {
+    document.getElementById('mainImage').src = src;
+}
+</script> 

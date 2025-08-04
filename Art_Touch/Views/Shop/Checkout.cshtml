@@ -1,0 +1,358 @@
+@model List<Art_Touch.Controllers.CartItem>
+@{
+    ViewData["Title"] = "Checkout";
+    Layout = "~/Views/Shared/_ShopLayout.cshtml";
+    var total = Model.Sum(i => (i.Product?.DiscountPrice ?? i.Product?.OriginalPrice ?? 0) * i.Quantity);
+}
+
+<div style="padding: 80px 0; background: #f8f9fa; min-height: 80vh;">
+    <div class="container">
+        <h1 style="font-size: 36px; font-weight: bold; color: #333; margin-bottom: 40px; text-align: center;">Checkout</h1>
+
+        <form asp-action="PlaceOrder" method="post">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div style="background: white; border-radius: 15px; padding: 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); margin-bottom: 30px;">
+                        <h3 style="font-size: 24px; font-weight: bold; color: #333; margin-bottom: 25px;">Shipping Information</h3>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="FirstName" class="form-label" style="font-weight: 500; color: #333;">First Name *</label>
+                                <input type="text" class="form-control" id="FirstName" name="FirstName" required 
+                                       style="padding: 12px; border-radius: 8px; border: 1px solid #ddd;" />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="LastName" class="form-label" style="font-weight: 500; color: #333;">Last Name *</label>
+                                <input type="text" class="form-control" id="LastName" name="LastName" required 
+                                       style="padding: 12px; border-radius: 8px; border: 1px solid #ddd;" />
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="Email" class="form-label" style="font-weight: 500; color: #333;">Email Address *</label>
+                            <input type="email" class="form-control" id="Email" name="Email" required 
+                                   style="padding: 12px; border-radius: 8px; border: 1px solid #ddd;" />
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="Phone" class="form-label" style="font-weight: 500; color: #333;">Phone Number *</label>
+                            <input type="tel" class="form-control" id="Phone" name="Phone" required 
+                                   style="padding: 12px; border-radius: 8px; border: 1px solid #ddd;" />
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="Address" class="form-label" style="font-weight: 500; color: #333;">Street Address *</label>
+                            <input type="text" class="form-control" id="Address" name="Address" required 
+                                   style="padding: 12px; border-radius: 8px; border: 1px solid #ddd;" />
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="City" class="form-label" style="font-weight: 500; color: #333;">City *</label>
+                                <input type="text" class="form-control" id="City" name="City" required 
+                                       style="padding: 12px; border-radius: 8px; border: 1px solid #ddd;" />
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="ZipCode" class="form-label" style="font-weight: 500; color: #333;">ZIP Code *</label>
+                                <input type="text" class="form-control" id="ZipCode" name="ZipCode" required 
+                                       style="padding: 12px; border-radius: 8px; border: 1px solid #ddd;" />
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="Country" class="form-label" style="font-weight: 500; color: #333;">Country *</label>
+                                <select class="form-control" id="Country" name="Country" required 
+                                        style="padding: 12px; border-radius: 8px; border: 1px solid #ddd;">
+                                    <option value="">Select Country</option>
+                                    <option value="US">United States</option>
+                                    <option value="CA">Canada</option>
+                                    <option value="UK">United Kingdom</option>
+                                    <option value="AU">Australia</option>
+                                    <option value="DE">Germany</option>
+                                    <option value="FR">France</option>
+                                    <option value="IT">Italy</option>
+                                    <option value="ES">Spain</option>
+                                    <option value="JP">Japan</option>
+                                    <option value="CN">China</option>
+                                    <option value="IN">India</option>
+                                    <option value="BR">Brazil</option>
+                                    <option value="MX">Mexico</option>
+                                    <option value="RU">Russia</option>
+                                    <option value="KR">South Korea</option>
+                                    <option value="NL">Netherlands</option>
+                                    <option value="SE">Sweden</option>
+                                    <option value="NO">Norway</option>
+                                    <option value="DK">Denmark</option>
+                                    <option value="FI">Finland</option>
+                                    <option value="CH">Switzerland</option>
+                                    <option value="AT">Austria</option>
+                                    <option value="BE">Belgium</option>
+                                    <option value="IE">Ireland</option>
+                                    <option value="NZ">New Zealand</option>
+                                    <option value="SG">Singapore</option>
+                                    <option value="HK">Hong Kong</option>
+                                    <option value="TW">Taiwan</option>
+                                    <option value="TH">Thailand</option>
+                                    <option value="MY">Malaysia</option>
+                                    <option value="PH">Philippines</option>
+                                    <option value="VN">Vietnam</option>
+                                    <option value="ID">Indonesia</option>
+                                    <option value="TR">Turkey</option>
+                                    <option value="SA">Saudi Arabia</option>
+                                    <option value="AE">United Arab Emirates</option>
+                                    <option value="IL">Israel</option>
+                                    <option value="EG">Egypt</option>
+                                    <option value="ZA">South Africa</option>
+                                    <option value="NG">Nigeria</option>
+                                    <option value="KE">Kenya</option>
+                                    <option value="GH">Ghana</option>
+                                    <option value="ET">Ethiopia</option>
+                                    <option value="UG">Uganda</option>
+                                    <option value="TZ">Tanzania</option>
+                                    <option value="ZW">Zimbabwe</option>
+                                    <option value="BW">Botswana</option>
+                                    <option value="NA">Namibia</option>
+                                    <option value="MZ">Mozambique</option>
+                                    <option value="ZM">Zambia</option>
+                                    <option value="MW">Malawi</option>
+                                    <option value="RW">Rwanda</option>
+                                    <option value="BI">Burundi</option>
+                                    <option value="SS">South Sudan</option>
+                                    <option value="SD">Sudan</option>
+                                    <option value="LY">Libya</option>
+                                    <option value="TN">Tunisia</option>
+                                    <option value="DZ">Algeria</option>
+                                    <option value="MA">Morocco</option>
+                                    <option value="SN">Senegal</option>
+                                    <option value="CI">Ivory Coast</option>
+                                    <option value="BF">Burkina Faso</option>
+                                    <option value="ML">Mali</option>
+                                    <option value="NE">Niger</option>
+                                    <option value="TD">Chad</option>
+                                    <option value="CF">Central African Republic</option>
+                                    <option value="CM">Cameroon</option>
+                                    <option value="GQ">Equatorial Guinea</option>
+                                    <option value="GA">Gabon</option>
+                                    <option value="CG">Republic of the Congo</option>
+                                    <option value="CD">Democratic Republic of the Congo</option>
+                                    <option value="AO">Angola</option>
+                                    <option value="ST">São Tomé and Príncipe</option>
+                                    <option value="CV">Cape Verde</option>
+                                    <option value="GM">Gambia</option>
+                                    <option value="GN">Guinea</option>
+                                    <option value="GW">Guinea-Bissau</option>
+                                    <option value="SL">Sierra Leone</option>
+                                    <option value="LR">Liberia</option>
+                                    <option value="TG">Togo</option>
+                                    <option value="BJ">Benin</option>
+                                    <option value="MR">Mauritania</option>
+                                    <option value="EH">Western Sahara</option>
+                                    <option value="DJ">Djibouti</option>
+                                    <option value="SO">Somalia</option>
+                                    <option value="KM">Comoros</option>
+                                    <option value="MU">Mauritius</option>
+                                    <option value="SC">Seychelles</option>
+                                    <option value="MG">Madagascar</option>
+                                    <option value="RE">Réunion</option>
+                                    <option value="YT">Mayotte</option>
+                                    <option value="TF">French Southern Territories</option>
+                                    <option value="IO">British Indian Ocean Territory</option>
+                                    <option value="SH">Saint Helena</option>
+                                    <option value="AC">Ascension Island</option>
+                                    <option value="TA">Tristan da Cunha</option>
+                                    <option value="BV">Bouvet Island</option>
+                                    <option value="GS">South Georgia and the South Sandwich Islands</option>
+                                    <option value="AQ">Antarctica</option>
+                                    <option value="FK">Falkland Islands</option>
+                                    <option value="AR">Argentina</option>
+                                    <option value="CL">Chile</option>
+                                    <option value="PE">Peru</option>
+                                    <option value="BO">Bolivia</option>
+                                    <option value="PY">Paraguay</option>
+                                    <option value="UY">Uruguay</option>
+                                    <option value="GY">Guyana</option>
+                                    <option value="SR">Suriname</option>
+                                    <option value="GF">French Guiana</option>
+                                    <option value="VE">Venezuela</option>
+                                    <option value="CO">Colombia</option>
+                                    <option value="EC">Ecuador</option>
+                                    <option value="PA">Panama</option>
+                                    <option value="CR">Costa Rica</option>
+                                    <option value="NI">Nicaragua</option>
+                                    <option value="HN">Honduras</option>
+                                    <option value="SV">El Salvador</option>
+                                    <option value="GT">Guatemala</option>
+                                    <option value="BZ">Belize</option>
+                                    <option value="CU">Cuba</option>
+                                    <option value="JM">Jamaica</option>
+                                    <option value="HT">Haiti</option>
+                                    <option value="DO">Dominican Republic</option>
+                                    <option value="PR">Puerto Rico</option>
+                                    <option value="TT">Trinidad and Tobago</option>
+                                    <option value="BB">Barbados</option>
+                                    <option value="GD">Grenada</option>
+                                    <option value="LC">Saint Lucia</option>
+                                    <option value="VC">Saint Vincent and the Grenadines</option>
+                                    <option value="AG">Antigua and Barbuda</option>
+                                    <option value="KN">Saint Kitts and Nevis</option>
+                                    <option value="DM">Dominica</option>
+                                    <option value="BS">Bahamas</option>
+                                    <option value="TC">Turks and Caicos Islands</option>
+                                    <option value="KY">Cayman Islands</option>
+                                    <option value="VG">British Virgin Islands</option>
+                                    <option value="VI">U.S. Virgin Islands</option>
+                                    <option value="AI">Anguilla</option>
+                                    <option value="MS">Montserrat</option>
+                                    <option value="GP">Guadeloupe</option>
+                                    <option value="MQ">Martinique</option>
+                                    <option value="BL">Saint Barthélemy</option>
+                                    <option value="MF">Saint Martin</option>
+                                    <option value="SX">Sint Maarten</option>
+                                    <option value="CW">Curaçao</option>
+                                    <option value="AW">Aruba</option>
+                                    <option value="BQ">Caribbean Netherlands</option>
+                                    <option value="PM">Saint Pierre and Miquelon</option>
+                                    <option value="GL">Greenland</option>
+                                    <option value="IS">Iceland</option>
+                                    <option value="PT">Portugal</option>
+                                    <option value="GR">Greece</option>
+                                    <option value="CY">Cyprus</option>
+                                    <option value="MT">Malta</option>
+                                    <option value="HR">Croatia</option>
+                                    <option value="SI">Slovenia</option>
+                                    <option value="HU">Hungary</option>
+                                    <option value="CZ">Czech Republic</option>
+                                    <option value="SK">Slovakia</option>
+                                    <option value="PL">Poland</option>
+                                    <option value="LT">Lithuania</option>
+                                    <option value="LV">Latvia</option>
+                                    <option value="EE">Estonia</option>
+                                    <option value="RO">Romania</option>
+                                    <option value="BG">Bulgaria</option>
+                                    <option value="RS">Serbia</option>
+                                    <option value="ME">Montenegro</option>
+                                    <option value="BA">Bosnia and Herzegovina</option>
+                                    <option value="MK">North Macedonia</option>
+                                    <option value="AL">Albania</option>
+                                    <option value="XK">Kosovo</option>
+                                    <option value="MD">Moldova</option>
+                                    <option value="UA">Ukraine</option>
+                                    <option value="BY">Belarus</option>
+                                    <option value="KZ">Kazakhstan</option>
+                                    <option value="UZ">Uzbekistan</option>
+                                    <option value="KG">Kyrgyzstan</option>
+                                    <option value="TJ">Tajikistan</option>
+                                    <option value="TM">Turkmenistan</option>
+                                    <option value="AF">Afghanistan</option>
+                                    <option value="PK">Pakistan</option>
+                                    <option value="BD">Bangladesh</option>
+                                    <option value="LK">Sri Lanka</option>
+                                    <option value="MV">Maldives</option>
+                                    <option value="NP">Nepal</option>
+                                    <option value="BT">Bhutan</option>
+                                    <option value="MM">Myanmar</option>
+                                    <option value="LA">Laos</option>
+                                    <option value="KH">Cambodia</option>
+                                    <option value="BN">Brunei</option>
+                                    <option value="TL">East Timor</option>
+                                    <option value="PG">Papua New Guinea</option>
+                                    <option value="FJ">Fiji</option>
+                                    <option value="NC">New Caledonia</option>
+                                    <option value="VU">Vanuatu</option>
+                                    <option value="SB">Solomon Islands</option>
+                                    <option value="TO">Tonga</option>
+                                    <option value="WS">Samoa</option>
+                                    <option value="KI">Kiribati</option>
+                                    <option value="TV">Tuvalu</option>
+                                    <option value="NR">Nauru</option>
+                                    <option value="PW">Palau</option>
+                                    <option value="MH">Marshall Islands</option>
+                                    <option value="FM">Micronesia</option>
+                                    <option value="CK">Cook Islands</option>
+                                    <option value="NU">Niue</option>
+                                    <option value="TK">Tokelau</option>
+                                    <option value="AS">American Samoa</option>
+                                    <option value="GU">Guam</option>
+                                    <option value="MP">Northern Mariana Islands</option>
+                                    <option value="PF">French Polynesia</option>
+                                    <option value="WF">Wallis and Futuna</option>
+                                    <option value="PN">Pitcairn Islands</option>
+                                    <option value="CC">Cocos Islands</option>
+                                    <option value="CX">Christmas Island</option>
+                                    <option value="NF">Norfolk Island</option>
+                                    <option value="AU">Australia</option>
+                                    <option value="NZ">New Zealand</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="background: white; border-radius: 15px; padding: 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+                        <h3 style="font-size: 24px; font-weight: bold; color: #333; margin-bottom: 25px;">Order Review</h3>
+                        
+                        @foreach (var item in Model)
+                        {
+                            <div style="display: flex; align-items: center; padding: 15px 0; border-bottom: 1px solid #eee;">
+                                <div style="flex: 0 0 80px; margin-right: 15px;">
+                                    <img src="/images/products/@(item.Product?.Images?.FirstOrDefault()?.ImageUrl ?? "placeholder-dress.jpg")" 
+                                         alt="@item.Product?.Name" 
+                                         style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;" />
+                                </div>
+                                
+                                <div style="flex: 1;">
+                                    <h4 style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 5px;">@item.Product?.Name</h4>
+                                    <p style="color: #666; font-size: 14px;">Size: @item.Size | Quantity: @item.Quantity</p>
+                                </div>
+                                
+                                <div style="text-align: right; min-width: 100px;">
+                                    <div style="font-weight: 600; color: #e91e63;">
+                                        $@((item.Product?.DiscountPrice ?? item.Product?.OriginalPrice ?? 0) * item.Quantity)
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <div style="background: white; border-radius: 15px; padding: 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); position: sticky; top: 20px;">
+                        <h3 style="font-size: 24px; font-weight: bold; color: #333; margin-bottom: 20px;">Order Summary</h3>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                <span style="color: #666;">Subtotal:</span>
+                                <span style="font-weight: 500;">$@total</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                <span style="color: #666;">Shipping:</span>
+                                <span style="font-weight: 500;">Free</span>
+                            </div>
+                            <hr style="margin: 15px 0;" />
+                            <div style="display: flex; justify-content: space-between; font-size: 18px; font-weight: bold;">
+                                <span>Total:</span>
+                                <span style="color: #e91e63;">$@total</span>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn w-100" style="background: #e91e63; color: white; padding: 15px; border-radius: 8px; border: none; font-weight: 500; font-size: 16px; margin-bottom: 15px;">
+                            Place Order
+                        </button>
+                        
+                        <a href="@Url.Action("Cart", "Shop")" class="btn w-100" style="border: 2px solid #e91e63; color: #e91e63; padding: 15px; border-radius: 8px; text-decoration: none; font-weight: 500; text-align: center; background: transparent;">
+                            Back to Cart
+                        </a>
+                        
+                        <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                            <h4 style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 10px;">
+                                <i class="fas fa-shield-alt" style="color: #e91e63; margin-right: 8px;"></i>
+                                Secure Checkout
+                            </h4>
+                            <p style="font-size: 14px; color: #666; margin: 0;">
+                                Your payment information is encrypted and secure. We never store your credit card details.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div> 

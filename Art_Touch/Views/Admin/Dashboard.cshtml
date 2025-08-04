@@ -1,0 +1,190 @@
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="admin-content">
+    <div class="content-header">
+        <h1>Admin Dashboard</h1>
+        <p class="text-muted">Welcome to your women's clothing store management panel</p>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+        <div class="col-md-3 mb-3">
+            <div class="stats-card">
+                <i class="fas fa-tshirt"></i>
+                <h3>@ViewBag.TotalProducts</h3>
+                <p>Total Products</p>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="stats-card">
+                <i class="fas fa-shopping-cart"></i>
+                <h3>@ViewBag.TotalOrders</h3>
+                <p>Total Orders</p>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="stats-card">
+                <i class="fas fa-tags"></i>
+                <h3>@ViewBag.TotalCategories</h3>
+                <p>Categories</p>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="stats-card">
+                <i class="fas fa-dollar-sign"></i>
+                <h3>$@ViewBag.TotalRevenue.ToString("F2")</h3>
+                <p>Total Revenue</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="fas fa-box"></i> Product Management</h5>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted">Add, edit, and manage your clothing products with sizes and stock levels.</p>
+                    <div class="d-flex gap-2">
+                        <a href="@Url.Action("Products", "Admin")" class="btn btn-primary">
+                            <i class="fas fa-list"></i> View All Products
+                        </a>
+                        <a href="@Url.Action("CreateProduct", "Admin")" class="btn btn-success">
+                            <i class="fas fa-plus"></i> Add New Product
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="fas fa-tags"></i> Category Management</h5>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted">Organize your products into categories for better organization.</p>
+                    <div class="d-flex gap-2">
+                        <a href="@Url.Action("Categories", "Admin")" class="btn btn-primary">
+                            <i class="fas fa-list"></i> View Categories
+                        </a>
+                        <a href="@Url.Action("CreateCategory", "Admin")" class="btn btn-success">
+                            <i class="fas fa-plus"></i> Add Category
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="fas fa-shopping-bag"></i> Order Management</h5>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted">View and process customer orders, update order status.</p>
+                    <a href="@Url.Action("Orders", "Admin")" class="btn btn-primary">
+                        <i class="fas fa-list"></i> View All Orders
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="fas fa-store"></i> Store Preview</h5>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted">See how your store looks to customers and test the shopping experience.</p>
+                    <a href="@Url.Action("Index", "Shop")" class="btn btn-info" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> View Store
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="fas fa-chart-line"></i> Quick Stats</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 text-center">
+                            <div class="quick-stat">
+                                <i class="fas fa-star text-warning"></i>
+                                <h4>@ViewBag.TotalProducts</h4>
+                                <small class="text-muted">Active Products</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <div class="quick-stat">
+                                <i class="fas fa-fire text-danger"></i>
+                                <h4>@ViewBag.TotalCategories</h4>
+                                <small class="text-muted">Categories</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <div class="quick-stat">
+                                <i class="fas fa-shopping-cart text-primary"></i>
+                                <h4>@ViewBag.TotalOrders</h4>
+                                <small class="text-muted">Total Orders</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <div class="quick-stat">
+                                <i class="fas fa-dollar-sign text-success"></i>
+                                <h4>$@ViewBag.TotalRevenue.ToString("F2")</h4>
+                                <small class="text-muted">Revenue</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.gap-2 {
+    gap: 0.5rem;
+}
+
+.quick-stat {
+    padding: 20px;
+    border-radius: 10px;
+    background: rgba(102, 126, 234, 0.05);
+    transition: all 0.3s ease;
+}
+
+.quick-stat:hover {
+    transform: translateY(-2px);
+    background: rgba(102, 126, 234, 0.1);
+}
+
+.quick-stat i {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.quick-stat h4 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 10px 0 5px 0;
+    color: #2c3e50;
+}
+
+.quick-stat small {
+    font-size: 0.875rem;
+}
+</style>
+

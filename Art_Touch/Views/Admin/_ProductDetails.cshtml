@@ -1,0 +1,184 @@
+@model DAL.Data.Models.Product
+
+<div class="product-details">
+    <div class="row">
+        <div class="col-md-6">
+            <h4>@Model.Name</h4>
+            <p class="text-muted">@Model.Description</p>
+            
+            <div class="product-info">
+                <div class="row mb-3">
+                    <div class="col-6">
+                        <strong>Category:</strong>
+                        <span class="badge badge-info">@Model.Category?.Name</span>
+                    </div>
+                    <div class="col-6">
+                        <strong>Status:</strong>
+                        @if (Model.IsActive)
+                        {
+                            <span class="badge badge-success">Active</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-secondary">Inactive</span>
+                        }
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-6">
+                        <strong>Original Price:</strong>
+                        <span class="text-decoration-line-through">$@Model.OriginalPrice.ToString("F2")</span>
+                    </div>
+                    <div class="col-6">
+                        <strong>Discount Price:</strong>
+                        @if (Model.DiscountPrice.HasValue)
+                        {
+                            <span class="text-danger font-weight-bold">$@Model.DiscountPrice.Value.ToString("F2")</span>
+                        }
+                        else
+                        {
+                            <span class="text-muted">No discount</span>
+                        }
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <strong>Badges:</strong>
+                        <div class="mt-1">
+                            @if (Model.IsNewArrival)
+                            {
+                                <span class="badge badge-info mr-1">
+                                    <i class="fas fa-star"></i> New Arrival
+                                </span>
+                            }
+                            @if (Model.IsBestseller)
+                            {
+                                <span class="badge badge-warning">
+                                    <i class="fas fa-fire"></i> Best Seller
+                                </span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <h5>Sizes & Stock</h5>
+            @if (Model.Sizes != null && Model.Sizes.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Size</th>
+                                <th>Quantity</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var size in Model.Sizes)
+                            {
+                                <tr>
+                                    <td><strong>@size.Size</strong></td>
+                                    <td>@size.QuantityInStock</td>
+                                    <td>
+                                        @if (size.QuantityInStock > 0)
+                                        {
+                                            <span class="badge badge-success">In Stock</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-danger">Out of Stock</span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-2">
+                    <strong>Total Items:</strong> @Model.Sizes.Sum(s => s.QuantityInStock)
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle"></i> No sizes defined for this product.
+                </div>
+            }
+        </div>
+    </div>
+    
+    @if (Model.Images != null && Model.Images.Any())
+    {
+        <div class="row mt-4">
+            <div class="col-12">
+                <h5>Product Images</h5>
+                <div class="row">
+                    @{
+                        var coverImage = Model.Images?.FirstOrDefault(i => i.IsCover);
+                        var galleryImages = Model.Images?.Where(i => !i.IsCover).ToList() ?? new List<DAL.Data.Models.ProductImage>();
+                    }
+                    
+                    @if (coverImage != null)
+                    {
+                        <div class="col-md-6 mb-3">
+                            <div class="cover-image-container">
+                                <h6 class="text-primary">Cover Image</h6>
+                                <img src="@coverImage.ImageUrl" 
+                                     class="img-fluid rounded" 
+                                     style="max-height: 200px; width: 100%; object-fit: cover;" 
+                                     onerror="this.src='/images/placeholder-dress.jpg'; this.onerror=null;"
+                                     alt="Cover Image" />
+                            </div>
+                        </div>
+                    }
+                    
+                    @if (galleryImages.Any())
+                    {
+                        <div class="col-md-6">
+                            <h6 class="text-info">Gallery Images (@galleryImages.Count)</h6>
+                            <div class="row">
+                                @foreach (var image in galleryImages)
+                                {
+                                    <div class="col-md-6 mb-2">
+                                        <img src="@image.ImageUrl" 
+                                             class="img-fluid rounded" 
+                                             style="max-height: 100px; width: 100%; object-fit: cover;" 
+                                             onerror="this.src='/images/placeholder-dress.jpg'; this.onerror=null;"
+                                             alt="Gallery Image" />
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i> No images uploaded for this product yet.
+                </div>
+            </div>
+        </div>
+    }
+    
+    <div class="row mt-4">
+        <div class="col-12 text-center">
+            <a href="@Url.Action("EditProduct", "Admin", new { id = Model.Id })" class="btn btn-primary">
+                <i class="fas fa-edit"></i> Edit Product
+            </a>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                <i class="fas fa-times"></i> Close
+            </button>
+        </div>
+    </div>
+</div> 
+</div> 
