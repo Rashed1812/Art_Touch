@@ -45,24 +45,35 @@
                         {
                             <tr>
                                 <td>@product.Id</td>
-                                <td>
+                                <td class="product-image-cell">
                                     @{
                                         var coverImage = product.Images?.FirstOrDefault(i => i.IsCover);
+                                        var anyImage = product.Images?.FirstOrDefault(); // Fallback to any image
+                                        var imageToShow = coverImage ?? anyImage;
                                     }
-                                    @if (coverImage != null)
+                                    @if (imageToShow != null)
                                     {
-                                        <img src="@coverImage.ImageUrl" 
+                                        <img src="@imageToShow.ImageUrl" 
                                              class="img-fluid rounded" 
-                                             style="width: 60px; height: 60px; object-fit: cover;" 
+                                             style="width: 60px; height: 60px; object-fit: cover; border: 1px solid #dee2e6; cursor: pointer;" 
                                              onerror="this.src='/images/placeholder-dress.jpg'; this.onerror=null;"
-                                             alt="@product.Name" />
+                                             alt="@product.Name"
+                                             title="@product.Name - Click to view details"
+                                             onclick="viewProductDetails(@product.Id)" />
+                                        @if (coverImage == null && anyImage != null)
+                                        {
+                                            <small class="text-warning d-block" style="font-size: 0.7em;">No cover</small>
+                                        }
                                     }
                                     else
                                     {
-                                        <div class="d-flex align-items-center justify-content-center bg-light rounded" 
-                                             style="width: 60px; height: 60px;">
+                                        <div class="d-flex align-items-center justify-content-center no-image-placeholder rounded" 
+                                             style="width: 60px; height: 60px; border: 1px solid #dee2e6; cursor: pointer;"
+                                             onclick="viewProductDetails(@product.Id)"
+                                             title="@product.Name - No image available">
                                             <i class="fas fa-image text-muted"></i>
                                         </div>
+                                        <small class="text-muted d-block" style="font-size: 0.7em;">No image</small>
                                     }
                                 </td>
                                 <td>
@@ -209,13 +220,41 @@
 </div>
 
 @section Scripts {
+    <style>
+        .product-image-cell {
+            position: relative;
+        }
+        
+        .product-image-cell img {
+            transition: transform 0.2s ease;
+        }
+        
+        .product-image-cell img:hover {
+            transform: scale(1.1);
+            z-index: 1000;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        
+        .no-image-placeholder {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+    </style>
+    
     <script>
         function viewProductDetails(productId) {
+            // Show loading state
+            $('#productDetailsContent').html('<div class="text-center p-4"><i class="fas fa-spinner fa-spin"></i> Loading...</div>');
+            $('#productDetailsModal').modal('show');
+            
             // Load product details via AJAX
-            $.get('@Url.Action("ProductDetails", "Admin")', { id: productId }, function(data) {
-                $('#productDetailsContent').html(data);
-                $('#productDetailsModal').modal('show');
-            });
+            $.get('@Url.Action("ProductDetails", "Admin")', { id: productId })
+                .done(function(data) {
+                    $('#productDetailsContent').html(data);
+                })
+                .fail(function(xhr, status, error) {
+                    $('#productDetailsContent').html('<div class="alert alert-danger"><i class="fas fa-exclamation-triangle"></i> Error loading product details: ' + error + '</div>');
+                });
         }
         
         // Auto-hide alerts after 5 seconds
