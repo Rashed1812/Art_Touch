@@ -46,7 +46,8 @@ namespace Art_Touch.Controllers
         {
             IQueryable<Product> query = _context.Products
                 .Where(p => p.IsActive)
-                .Include(p => p.Category);
+                .Include(p => p.Category)
+                .Include(p => p.Images);
                 
             if (categoryId.HasValue)
             {
