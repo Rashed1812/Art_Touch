@@ -22,12 +22,14 @@ namespace Art_Touch.Controllers
             var newArrivals = await _context.Products
                 .Where(p => p.IsNewArrival && p.IsActive)
                 .Include(p => p.Category)
+                .Include(p => p.Images)
                 .Take(4)
                 .ToListAsync();
                 
             var bestSellers = await _context.Products
                 .Where(p => p.IsBestseller && p.IsActive)
                 .Include(p => p.Category)
+                .Include(p => p.Images)
                 .Take(4)
                 .ToListAsync();
                 
@@ -46,7 +48,8 @@ namespace Art_Touch.Controllers
         {
             IQueryable<Product> query = _context.Products
                 .Where(p => p.IsActive)
-                .Include(p => p.Category);
+                .Include(p => p.Category)
+                .Include(p => p.Images);
                 
             if (categoryId.HasValue)
             {
@@ -81,6 +84,8 @@ namespace Art_Touch.Controllers
             // Get related products from same category
             var relatedProducts = await _context.Products
                 .Where(p => p.CategoryId == product.CategoryId && p.Id != id && p.IsActive)
+                .Include(p => p.Category)
+                .Include(p => p.Images)
                 .Take(4)
                 .ToListAsync();
                 
@@ -94,6 +99,7 @@ namespace Art_Touch.Controllers
             var newArrivals = await _context.Products
                 .Where(p => p.IsNewArrival && p.IsActive)
                 .Include(p => p.Category)
+                .Include(p => p.Images)
                 .ToListAsync();
                 
             return View(newArrivals);
@@ -104,6 +110,7 @@ namespace Art_Touch.Controllers
             var bestSellers = await _context.Products
                 .Where(p => p.IsBestseller && p.IsActive)
                 .Include(p => p.Category)
+                .Include(p => p.Images)
                 .ToListAsync();
                 
             return View(bestSellers);
@@ -117,6 +124,7 @@ namespace Art_Touch.Controllers
             var products = await _context.Products
                 .Where(p => p.CategoryId == id && p.IsActive)
                 .Include(p => p.Category)
+                .Include(p => p.Images)
                 .ToListAsync();
                 
             ViewBag.Category = category;

@@ -1,5 +1,5 @@
 @{
-    ViewData["Title"] = "Elegant Women's Fashion";
+    ViewData["Title"] = "Art Touch Gallery - Women's Fashion";
     Layout = "~/Views/Shared/_ShopLayout.cshtml";
 }
 
@@ -39,7 +39,7 @@
                     <div class="product-card">
                         <div class="product-image">
                             <span class="product-badge new">New</span>
-                            <img src="@(product.Images?.Any() == true ? product.Images.First().ImageUrl : "/images/placeholder-dress.jpg")" 
+                                                            <img src="@(product.Images != null && product.Images.Count > 0 ? product.Images.First().ImageUrl : "/images/placeholder-dress.jpg")" 
                                  alt="@product.Name" 
                                  onerror="this.src='/images/placeholder-dress.jpg'; this.onerror=null;" />
                             <div class="product-overlay">
@@ -186,7 +186,7 @@
     <div class="container">
         <div class="section-header">
             <h2>Follow Us on Instagram</h2>
-            <p>Tag your photos with #ElegantStyle for a chance to be featured!</p>
+                            <p>Tag your photos with #ArtTouchStyle for a chance to be featured!</p>
         </div>
         
         <div class="instagram-grid">
@@ -211,7 +211,7 @@
         </div>
         
         <div class="section-footer">
-            <a href="#" class="btn btn-instagram">Follow @@ElegantStyle</a>
+                            <a href="#" class="btn btn-instagram">Follow @@ArtTouchGallery</a>
         </div>
     </div>
 </section>
