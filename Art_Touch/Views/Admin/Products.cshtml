@@ -30,6 +30,7 @@
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th style="width: 80px;">Image</th>
                             <th>Name</th>
                             <th>Category</th>
                             <th>Price</th>
@@ -44,6 +45,26 @@
                         {
                             <tr>
                                 <td>@product.Id</td>
+                                <td>
+                                    @{
+                                        var coverImage = product.Images?.FirstOrDefault(i => i.IsCover);
+                                    }
+                                    @if (coverImage != null)
+                                    {
+                                        <img src="@coverImage.ImageUrl" 
+                                             class="img-fluid rounded" 
+                                             style="width: 60px; height: 60px; object-fit: cover;" 
+                                             onerror="this.src='/images/placeholder-dress.jpg'; this.onerror=null;"
+                                             alt="@product.Name" />
+                                    }
+                                    else
+                                    {
+                                        <div class="d-flex align-items-center justify-content-center bg-light rounded" 
+                                             style="width: 60px; height: 60px;">
+                                            <i class="fas fa-image text-muted"></i>
+                                        </div>
+                                    }
+                                </td>
                                 <td>
                                     <div>
                                         <strong>@product.Name</strong>
