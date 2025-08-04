@@ -32,7 +32,7 @@
                     <div class="product-card">
                         <div class="product-image">
                             <span class="product-badge new">New</span>
-                            <img src="@(product.Images?.Any() == true ? product.Images.First().ImageUrl : "/images/placeholder-dress.jpg")" 
+                            <img src="@(product.Images != null && product.Images.Count > 0 ? product.Images.First().ImageUrl : "/images/placeholder-dress.jpg")" 
                                  alt="@product.Name" 
                                  onerror="this.src='/images/placeholder-dress.jpg'; this.onerror=null;" />
                             <div class="product-overlay">
