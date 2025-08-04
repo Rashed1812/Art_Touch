@@ -4,14 +4,16 @@
     Layout = "~/Views/Shared/_ShopLayout.cshtml";
 }
 
-<div style="padding: 80px 0; background: #f8f9fa; min-height: 80vh;">
+<!-- Page Header -->
+<div class="page-header">
     <div class="container">
-        <div style="margin-bottom: 40px; text-align: center;">
-            <h1 style="font-size: 36px; font-weight: bold; color: #333; margin-bottom: 15px;">Best Sellers</h1>
-            <p style="font-size: 16px; color: #666; max-width: 600px; margin: 0 auto;">
-                Our most loved pieces that customers can't get enough of. These are the styles that define our collection.
-            </p>
-        </div>
+        <h1>Best Sellers</h1>
+        <p>Our most loved pieces that customers can't get enough of. These are the styles that define our collection.</p>
+    </div>
+</div>
+
+<div style="padding: 0 0 80px; background: #f8f9fa; min-height: 60vh;">
+    <div class="container">
 
         @if (!Model.Any())
         {
