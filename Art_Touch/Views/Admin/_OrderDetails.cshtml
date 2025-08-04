@@ -61,6 +61,7 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
+                        <th style="width: 80px;">Image</th>
                         <th>Product</th>
                         <th>Size</th>
                         <th>Quantity</th>
@@ -72,17 +73,62 @@
                     @foreach (var item in Model.Items)
                     {
                         <tr>
-                            <td>@item.Product?.Name</td>
-                            <td>@item.Size</td>
-                            <td>@item.Quantity</td>
+                            <td>
+                                @{
+                                    var coverImage = item.Product?.Images?.FirstOrDefault(i => i.IsCover);
+                                    var anyImage = item.Product?.Images?.FirstOrDefault(); // Fallback to any image
+                                    var imageToShow = coverImage ?? anyImage;
+                                }
+                                @if (imageToShow != null)
+                                {
+                                    <img src="@imageToShow.ImageUrl" 
+                                         class="img-fluid rounded" 
+                                         style="width: 60px; height: 60px; object-fit: cover; border: 1px solid #dee2e6;" 
+                                         onerror="this.src='/images/placeholder-dress.jpg'; this.onerror=null;"
+                                         alt="@item.Product?.Name"
+                                         title="@item.Product?.Name" />
+                                    @if (coverImage == null && anyImage != null)
+                                    {
+                                        <small class="text-info d-block" style="font-size: 0.7em;">Gallery img</small>
+                                    }
+                                }
+                                else
+                                {
+                                    <div class="d-flex align-items-center justify-content-center rounded" 
+                                         style="width: 60px; height: 60px; border: 1px solid #dee2e6; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+                                        <i class="fas fa-image text-muted"></i>
+                                    </div>
+                                    <small class="text-muted d-block" style="font-size: 0.7em;">No image</small>
+                                }
+                            </td>
+                            <td>
+                                <div>
+                                    <strong>@item.Product?.Name</strong>
+                                    @if (!string.IsNullOrEmpty(item.Product?.Description))
+                                    {
+                                        <br />
+                                        <small class="text-muted">@(item.Product.Description.Length > 40 ? item.Product.Description.Substring(0, 40) + "..." : item.Product.Description)</small>
+                                    }
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge badge-primary" style="font-size: 0.9em;">
+                                    @item.Size
+                                </span>
+                            </td>
+                            <td>
+                                <span class="badge badge-info" style="font-size: 0.9em;">
+                                    @item.Quantity pieces
+                                </span>
+                            </td>
                             <td>$@item.UnitPrice.ToString("F2")</td>
-                            <td>$@item.Price.ToString("F2")</td>
+                            <td><strong>$@item.Price.ToString("F2")</strong></td>
                         </tr>
                     }
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="4" class="text-right"><strong>Total:</strong></td>
+                        <td colspan="5" class="text-right"><strong>Total:</strong></td>
                         <td><strong>$@Model.TotalAmount.ToString("F2")</strong></td>
                     </tr>
                 </tfoot>

@@ -39,6 +39,7 @@ namespace Art_Touch.Controllers
             var products = await _context.Products
                 .Include(p => p.Category)
                 .Include(p => p.Sizes)
+                .Include(p => p.Images)
                 .ToListAsync();
             return View(products);
         }
@@ -371,6 +372,7 @@ namespace Art_Touch.Controllers
                 .Include(o => o.User)
                 .Include(o => o.Items)
                 .ThenInclude(oi => oi.Product)
+                .ThenInclude(p => p.Images)
                 .FirstOrDefaultAsync(o => o.Id == id);
                 
             if (order == null) return NotFound();
