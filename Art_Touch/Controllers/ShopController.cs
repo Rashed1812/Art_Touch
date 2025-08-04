@@ -84,6 +84,8 @@ namespace Art_Touch.Controllers
             // Get related products from same category
             var relatedProducts = await _context.Products
                 .Where(p => p.CategoryId == product.CategoryId && p.Id != id && p.IsActive)
+                .Include(p => p.Category)
+                .Include(p => p.Images)
                 .Take(4)
                 .ToListAsync();
                 

@@ -1,4 +1,5 @@
 @model DAL.Data.Models.Product
+@using DAL.Data.Models
 @{
     ViewData["Title"] = Model.Name;
     Layout = "~/Views/Shared/_ShopLayout.cshtml";
@@ -115,12 +116,15 @@
             </div>
         </div>
         
-        @if (ViewBag.RelatedProducts?.Count > 0)
+        @if (ViewBag.RelatedProducts != null)
         {
-            <div style="margin-top: 60px;">
-                <h2 style="font-size: 28px; font-weight: bold; color: #333; margin-bottom: 30px; text-align: center;">You Might Also Like</h2>
-                <div class="products-grid">
-                    @foreach (var relatedProduct in ViewBag.RelatedProducts)
+            var relatedProducts = ViewBag.RelatedProducts as List<Product>;
+            if (relatedProducts != null && relatedProducts.Count > 0)
+            {
+                <div style="margin-top: 60px;">
+                    <h2 style="font-size: 28px; font-weight: bold; color: #333; margin-bottom: 30px; text-align: center;">You Might Also Like</h2>
+                    <div class="products-grid">
+                        @foreach (var relatedProduct in relatedProducts)
                     {
                         <div class="product-card">
                             <div class="product-image">
@@ -155,9 +159,10 @@
                                 </div>
                             </div>
                         </div>
-                    }
+                        }
+                    </div>
                 </div>
-            </div>
+            }
         }
     </div>
 </div>
