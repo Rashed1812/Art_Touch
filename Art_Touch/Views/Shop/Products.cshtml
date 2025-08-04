@@ -24,7 +24,7 @@
                         {
                             @foreach (var category in ViewBag.Categories)
                             {
-                                <option value="@category.Id" @@(ViewBag.CurrentCategory?.ToString() == category.Id.ToString() ? "selected" : "")>
+                                <option value="@category.Id" selected="@(ViewBag.CurrentCategory?.ToString() == category.Id.ToString())">
                                     @category.Name
                                 </option>
                             }
@@ -34,10 +34,10 @@
                 <div class="col-md-6 text-end">
                     <label for="sortBy" style="font-weight: 500; color: #333; margin-right: 10px;">Sort by:</label>
                     <select id="sortBy" class="form-control" style="display: inline-block; width: auto; padding: 8px 15px; border-radius: 8px; border: 1px solid #ddd;">
-                        <option value="newest" @@(ViewBag.CurrentSort?.ToString() == "newest" ? "selected" : "")>Newest First</option>
-                        <option value="price_low" @@(ViewBag.CurrentSort?.ToString() == "price_low" ? "selected" : "")>Price: Low to High</option>
-                        <option value="price_high" @@(ViewBag.CurrentSort?.ToString() == "price_high" ? "selected" : "")>Price: High to Low</option>
-                        <option value="name" @@(ViewBag.CurrentSort?.ToString() == "name" ? "selected" : "")>Name: A to Z</option>
+                        <option value="newest" selected="@(ViewBag.CurrentSort?.ToString() == "newest")">Newest First</option>
+                        <option value="price_low" selected="@(ViewBag.CurrentSort?.ToString() == "price_low")">Price: Low to High</option>
+                        <option value="price_high" selected="@(ViewBag.CurrentSort?.ToString() == "price_high")">Price: High to Low</option>
+                        <option value="name" selected="@(ViewBag.CurrentSort?.ToString() == "name")">Name: A to Z</option>
                     </select>
                 </div>
             </div>
