@@ -1,8 +1,187 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@{
+    ViewData["Title"] = "Home - Art Touch Gallery";
+    Layout = "~/Views/Shared/_ShopLayout.cshtml";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="hero-content">
+        <div class="hero-text">
+            <h1>Art Touch Gallery</h1>
+            <p>Discover the perfect blend of style and elegance. Transform your wardrobe with our curated collection of fashion-forward pieces designed for the modern woman.</p>
+            <div class="hero-buttons">
+                <a href="@Url.Action("Products", "Shop")" class="btn btn-primary">
+                    <i class="fas fa-shopping-bag"></i> Shop Collection
+                </a>
+                <a href="@Url.Action("AboutUs", "Home")" class="btn btn-secondary">
+                    <i class="fas fa-info-circle"></i> Learn More
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Categories Section -->
+<section class="featured-categories-section" style="padding: 80px 0; background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);">
+    <div class="container">
+        <div class="section-header">
+            <h2>Shop by Category</h2>
+            <p>Explore our carefully curated collections designed to elevate your style</p>
+        </div>
+        
+        <div class="categories-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin: 40px 0;">
+            <div class="category-card" style="position: relative; height: 400px; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.4s ease; cursor: pointer;">
+                <img src="/images/placeholder-dress.jpg" alt="Dresses" style="width: 100%; height: 100%; object-fit: cover; transition: all 0.4s ease;" />
+                <div class="category-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(45deg, rgba(102, 126, 234, 0.8), rgba(118, 75, 162, 0.8)); display: flex; align-items: center; justify-content: center; opacity: 0; transition: all 0.3s ease;">
+                    <div style="text-align: center; color: white;">
+                        <h3 style="font-size: 2rem; font-weight: 700; margin-bottom: 15px;">Dresses</h3>
+                        <p style="font-size: 1.1rem; margin-bottom: 20px;">Elegant & Versatile</p>
+                        <a href="@Url.Action("Products", "Shop")" class="btn" style="background: white; color: #333; padding: 12px 24px; border-radius: 25px; text-decoration: none; font-weight: 600;">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="category-card" style="position: relative; height: 400px; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.4s ease; cursor: pointer;">
+                <img src="/images/placeholder-dress.jpg" alt="Tops" style="width: 100%; height: 100%; object-fit: cover; transition: all 0.4s ease;" />
+                <div class="category-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(45deg, rgba(255, 107, 107, 0.8), rgba(255, 165, 0, 0.8)); display: flex; align-items: center; justify-content: center; opacity: 0; transition: all 0.3s ease;">
+                    <div style="text-align: center; color: white;">
+                        <h3 style="font-size: 2rem; font-weight: 700; margin-bottom: 15px;">Tops</h3>
+                        <p style="font-size: 1.1rem; margin-bottom: 20px;">Chic & Comfortable</p>
+                        <a href="@Url.Action("Products", "Shop")" class="btn" style="background: white; color: #333; padding: 12px 24px; border-radius: 25px; text-decoration: none; font-weight: 600;">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="category-card" style="position: relative; height: 400px; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.4s ease; cursor: pointer;">
+                <img src="/images/placeholder-dress.jpg" alt="Accessories" style="width: 100%; height: 100%; object-fit: cover; transition: all 0.4s ease;" />
+                <div class="category-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(45deg, rgba(78, 205, 196, 0.8), rgba(68, 160, 141, 0.8)); display: flex; align-items: center; justify-content: center; opacity: 0; transition: all 0.3s ease;">
+                    <div style="text-align: center; color: white;">
+                        <h3 style="font-size: 2rem; font-weight: 700; margin-bottom: 15px;">Accessories</h3>
+                        <p style="font-size: 1.1rem; margin-bottom: 20px;">Complete Your Look</p>
+                        <a href="@Url.Action("Products", "Shop")" class="btn" style="background: white; color: #333; padding: 12px 24px; border-radius: 25px; text-decoration: none; font-weight: 600;">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section" style="padding: 80px 0; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+    <div class="container">
+        <div class="section-header" style="margin-bottom: 60px;">
+            <h2 style="color: white;">Why Choose Art Touch Gallery?</h2>
+            <p style="color: rgba(255,255,255,0.9);">Experience fashion like never before with our premium services</p>
+        </div>
+        
+        <div class="features-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px;">
+            <div class="feature-card" style="text-align: center; padding: 40px 20px; background: rgba(255,255,255,0.1); border-radius: 20px; backdrop-filter: blur(10px); transition: all 0.3s ease;">
+                <div style="width: 80px; height: 80px; background: linear-gradient(45deg, #ff6b6b, #ffa500); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 32px;">
+                    <i class="fas fa-shipping-fast"></i>
+                </div>
+                <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 15px;">Free Shipping</h3>
+                <p style="color: rgba(255,255,255,0.8); line-height: 1.6;">Enjoy free shipping on all orders over $100. Fast and reliable delivery to your doorstep.</p>
+            </div>
+            
+            <div class="feature-card" style="text-align: center; padding: 40px 20px; background: rgba(255,255,255,0.1); border-radius: 20px; backdrop-filter: blur(10px); transition: all 0.3s ease;">
+                <div style="width: 80px; height: 80px; background: linear-gradient(45deg, #4ecdc4, #44a08d); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 32px;">
+                    <i class="fas fa-undo-alt"></i>
+                </div>
+                <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 15px;">Easy Returns</h3>
+                <p style="color: rgba(255,255,255,0.8); line-height: 1.6;">30-day hassle-free returns. Not satisfied? Return it for a full refund, no questions asked.</p>
+            </div>
+            
+            <div class="feature-card" style="text-align: center; padding: 40px 20px; background: rgba(255,255,255,0.1); border-radius: 20px; backdrop-filter: blur(10px); transition: all 0.3s ease;">
+                <div style="width: 80px; height: 80px; background: linear-gradient(45deg, #a8e6cf, #88d8a3); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 32px;">
+                    <i class="fas fa-award"></i>
+                </div>
+                <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 15px;">Premium Quality</h3>
+                <p style="color: rgba(255,255,255,0.8); line-height: 1.6;">Carefully selected materials and craftsmanship. Every piece is designed to last and impress.</p>
+            </div>
+            
+            <div class="feature-card" style="text-align: center; padding: 40px 20px; background: rgba(255,255,255,0.1); border-radius: 20px; backdrop-filter: blur(10px); transition: all 0.3s ease;">
+                <div style="width: 80px; height: 80px; background: linear-gradient(45deg, #ffd93d, #ff6b6b); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 32px;">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 15px;">24/7 Support</h3>
+                <p style="color: rgba(255,255,255,0.8); line-height: 1.6;">Our dedicated customer service team is here to help you anytime, anywhere.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action Section -->
+<section class="cta-section" style="padding: 80px 0; background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);">
+    <div class="container">
+        <div class="cta-content" style="text-align: center; max-width: 800px; margin: 0 auto;">
+            <h2 style="font-size: 3rem; font-weight: 700; color: #333; margin-bottom: 20px;">Ready to Transform Your Style?</h2>
+            <p style="font-size: 1.3rem; color: #666; margin-bottom: 40px; line-height: 1.6;">Join thousands of satisfied customers who have discovered their perfect style with Art Touch Gallery. Start your fashion journey today!</p>
+            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <a href="@Url.Action("Products", "Shop")" class="btn" style="background: linear-gradient(45deg, #ff6b6b, #ffa500); color: white; padding: 16px 40px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 18px; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(255,107,107,0.3);">
+                    <i class="fas fa-shopping-bag"></i> Start Shopping
+                </a>
+                <a href="@Url.Action("NewArrivals", "Shop")" class="btn" style="background: transparent; color: #ff6b6b; border: 2px solid #ff6b6b; padding: 14px 40px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 18px; transition: all 0.3s ease;">
+                    <i class="fas fa-sparkles"></i> View New Arrivals
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .category-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+    
+    .category-card:hover .category-overlay {
+        opacity: 1;
+    }
+    
+    .category-card:hover img {
+        transform: scale(1.1);
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-5px);
+        background: rgba(255,255,255,0.15);
+    }
+    
+    .cta-section .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+    
+    .cta-section .btn:first-child:hover {
+        box-shadow: 0 8px 25px rgba(255,107,107,0.4);
+    }
+    
+    .cta-section .btn:last-child:hover {
+        background: #ff6b6b;
+        color: white;
+    }
+    
+    @media (max-width: 768px) {
+        .categories-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .features-grid {
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+        
+        .cta-content h2 {
+            font-size: 2.2rem;
+        }
+        
+        .cta-content p {
+            font-size: 1.1rem;
+        }
+        
+        .cta-section .btn {
+            padding: 14px 30px;
+            font-size: 16px;
+        }
+    }
+</style>
