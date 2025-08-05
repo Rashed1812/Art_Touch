@@ -7,16 +7,17 @@
 <section class="hero-section">
     <div class="hero-content">
         <div class="hero-text">
-            <h1>Summer Collection 2023</h1>
-            <p>Discover the season's most coveted styles. Effortless elegance for the modern woman.</p>
+            <h1>Fashion Forward Collection 2024</h1>
+            <p>Discover the season's most coveted styles. Effortless elegance meets modern sophistication in our curated collection designed for the contemporary woman.</p>
             <div class="hero-buttons">
-                <a href="@Url.Action("Products", "Shop")" class="btn btn-primary">Shop Now</a>
-                <a href="@Url.Action("NewArrivals", "Shop")" class="btn btn-secondary">View Lookbook</a>
+                <a href="@Url.Action("Products", "Shop")" class="btn btn-primary">
+                    <i class="fas fa-shopping-bag"></i> Shop Now
+                </a>
+                <a href="@Url.Action("NewArrivals", "Shop")" class="btn btn-secondary">
+                    <i class="fas fa-sparkles"></i> View Lookbook
+                </a>
             </div>
         </div>
-    </div>
-    <div class="hero-image">
-        <img src="/images/hero-dress.jpg" alt="Summer Collection" />
     </div>
 </section>
 
@@ -25,7 +26,7 @@
     <div class="container">
         <div class="section-header">
             <h2>New Arrivals</h2>
-            <p>The latest additions to our collection, featuring this season's must-have pieces.</p>
+            <p>The latest additions to our collection, featuring this season's must-have pieces that define contemporary elegance.</p>
         </div>
         
         <div class="products-grid">
@@ -38,7 +39,6 @@
                     {
                     <div class="product-card">
                         <div class="product-image">
-cursor/fix-product-details-and-update-branding-fb72
                             @if (product.IsNewArrival)
                             {
                                 <span class="product-badge new">New</span>
@@ -48,10 +48,6 @@ cursor/fix-product-details-and-update-branding-fb72
                                 <span class="product-badge bestseller">Best Seller</span>
                             }
                             <img src="@(product.Images != null && product.Images.Count > 0 ? product.Images.First().ImageUrl : "/images/placeholder-dress.jpg")" 
-
-                            <span class="product-badge new">New</span>
-                                                            <img src="@(product.Images != null && product.Images.Count > 0 ? product.Images.First().ImageUrl : "/images/placeholder-dress.jpg")" 
- master
                                  alt="@product.Name" 
                                  onerror="this.src='/images/placeholder-dress.jpg'; this.onerror=null;" />
                             <div class="product-overlay">
@@ -81,18 +77,20 @@ cursor/fix-product-details-and-update-branding-fb72
             }
             else
             {
-                <!-- Placeholder products -->
+                <!-- Enhanced Placeholder products -->
                 <div class="product-card">
                     <div class="product-image">
                         <span class="product-badge new">New</span>
                         <img src="/images/placeholder-dress.jpg" alt="Lace Detail Blouse" />
                         <div class="product-overlay">
-                            <a href="#" class="btn btn-view">View Details</a>
+                            <a href="#" class="btn-view-details">
+                                <i class="fas fa-eye"></i> View Details
+                            </a>
                         </div>
                     </div>
                     <div class="product-info">
                         <h3>Lace Detail Blouse</h3>
-                        <p class="product-category">Elegant white blouse with delicate lace details</p>
+                        <p class="product-category">Elegant white blouse with delicate lace details perfect for any occasion</p>
                         <div class="product-price">
                             <span class="price-current">$49.99</span>
                         </div>
@@ -104,12 +102,14 @@ cursor/fix-product-details-and-update-branding-fb72
                         <span class="product-badge new">New</span>
                         <img src="/images/placeholder-dress.jpg" alt="Floral Midi Dress" />
                         <div class="product-overlay">
-                            <a href="#" class="btn btn-view">View Details</a>
+                            <a href="#" class="btn-view-details">
+                                <i class="fas fa-eye"></i> View Details
+                            </a>
                         </div>
                     </div>
                     <div class="product-info">
                         <h3>Floral Midi Dress</h3>
-                        <p class="product-category">Stunning floral pattern with flattering silhouette</p>
+                        <p class="product-category">Stunning floral pattern with flattering silhouette and flowing fabric</p>
                         <div class="product-price">
                             <span class="price-current">$79.99</span>
                         </div>
@@ -118,15 +118,17 @@ cursor/fix-product-details-and-update-branding-fb72
                 
                 <div class="product-card">
                     <div class="product-image">
-                        <span class="product-badge new">New</span>
+                        <span class="product-badge bestseller">Best Seller</span>
                         <img src="/images/placeholder-dress.jpg" alt="Wide Leg Trousers" />
                         <div class="product-overlay">
-                            <a href="#" class="btn btn-view">View Details</a>
+                            <a href="#" class="btn-view-details">
+                                <i class="fas fa-eye"></i> View Details
+                            </a>
                         </div>
                     </div>
                     <div class="product-info">
                         <h3>Wide Leg Trousers</h3>
-                        <p class="product-category">High-waisted design with flowing silhouette</p>
+                        <p class="product-category">High-waisted design with flowing silhouette in premium fabric</p>
                         <div class="product-price">
                             <span class="price-current">$65.99</span>
                         </div>
@@ -138,12 +140,14 @@ cursor/fix-product-details-and-update-branding-fb72
                         <span class="product-badge new">New</span>
                         <img src="/images/placeholder-dress.jpg" alt="Pearl Button Cardigan" />
                         <div class="product-overlay">
-                            <a href="#" class="btn btn-view">View Details</a>
+                            <a href="#" class="btn-view-details">
+                                <i class="fas fa-eye"></i> View Details
+                            </a>
                         </div>
                     </div>
                     <div class="product-info">
                         <h3>Pearl Button Cardigan</h3>
-                        <p class="product-category">Soft knit with elegant pearl button details</p>
+                        <p class="product-category">Soft knit with elegant pearl button details and cozy comfort</p>
                         <div class="product-price">
                             <span class="price-current">$54.99</span>
                         </div>
@@ -153,7 +157,9 @@ cursor/fix-product-details-and-update-branding-fb72
         </div>
         
         <div class="section-footer">
-            <a href="@Url.Action("NewArrivals", "Shop")" class="btn btn-outline">View All New Arrivals</a>
+            <a href="@Url.Action("NewArrivals", "Shop")" class="btn-outline">
+                <i class="fas fa-arrow-right"></i> View All New Arrivals
+            </a>
         </div>
     </div>
 </section>
@@ -163,34 +169,174 @@ cursor/fix-product-details-and-update-branding-fb72
     <div class="container">
         <div class="section-header">
             <h2>Best Sellers</h2>
-            <p>Our most loved pieces that customers can't get enough of.</p>
+            <p>Our most loved pieces that customers can't get enough of. Discover what's trending now.</p>
         </div>
         
         <div class="products-grid">
-            <!-- Similar structure as New Arrivals but with best seller products -->
-            <div class="product-card">
-                <div class="product-image">
-                    <span class="product-badge bestseller">Best Seller</span>
-                    <img src="/images/placeholder-dress.jpg" alt="Floral Summer Dress" />
-                    <div class="product-overlay">
-                        <a href="#" class="btn btn-view">View Details</a>
+            @if (ViewBag.BestSellers != null)
+            {
+                var bestSellers = ViewBag.BestSellers as List<DAL.Data.Models.Product>;
+                if (bestSellers != null)
+                {
+                    foreach (var product in bestSellers.Take(4))
+                    {
+                    <div class="product-card">
+                        <div class="product-image">
+                            @if (product.IsNewArrival)
+                            {
+                                <span class="product-badge new">New</span>
+                            }
+                            @if (product.IsBestseller)
+                            {
+                                <span class="product-badge bestseller">Best Seller</span>
+                            }
+                            <img src="@(product.Images != null && product.Images.Count > 0 ? product.Images.First().ImageUrl : "/images/placeholder-dress.jpg")" 
+                                 alt="@product.Name" 
+                                 onerror="this.src='/images/placeholder-dress.jpg'; this.onerror=null;" />
+                            <div class="product-overlay">
+                                <a href="@Url.Action("ProductDetails", "Shop", new { id = product.Id })" class="btn-view-details">
+                                    <i class="fas fa-eye"></i> View Details
+                                </a>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>@product.Name</h3>
+                            <p class="product-category">@(string.IsNullOrEmpty(product.Description) ? product.Category?.Name : product.Description)</p>
+                            <div class="product-price">
+                                @if (product.DiscountPrice.HasValue)
+                                {
+                                    <span class="price-current">$@product.DiscountPrice.Value.ToString("F2")</span>
+                                    <span class="price-original">$@product.OriginalPrice.ToString("F2")</span>
+                                }
+                                else
+                                {
+                                    <span class="price-current">$@product.OriginalPrice.ToString("F2")</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+                }
+            }
+            else
+            {
+                <!-- Enhanced Best Seller Placeholder Products -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge bestseller">Best Seller</span>
+                        <img src="/images/placeholder-dress.jpg" alt="Floral Summer Dress" />
+                        <div class="product-overlay">
+                            <a href="#" class="btn-view-details">
+                                <i class="fas fa-eye"></i> View Details
+                            </a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Floral Summer Dress</h3>
+                        <p class="product-category">Perfect for summer days and special occasions with vibrant print</p>
+                        <div class="product-price">
+                            <span class="price-current">$89.99</span>
+                            <span class="price-original">$129.99</span>
+                        </div>
                     </div>
                 </div>
-                <div class="product-info">
-                    <h3>Floral Summer Dress</h3>
-                    <p class="product-category">Perfect for summer days and special occasions</p>
-                    <div class="product-price">
-                        <span class="price-current">$89.99</span>
-                        <span class="price-original">$129.99</span>
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge bestseller">Best Seller</span>
+                        <img src="/images/placeholder-dress.jpg" alt="Classic Blazer" />
+                        <div class="product-overlay">
+                            <a href="#" class="btn-view-details">
+                                <i class="fas fa-eye"></i> View Details
+                            </a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Classic Blazer</h3>
+                        <p class="product-category">Timeless tailored blazer perfect for professional and casual wear</p>
+                        <div class="product-price">
+                            <span class="price-current">$119.99</span>
+                            <span class="price-original">$159.99</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Add more best seller products here -->
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge bestseller">Best Seller</span>
+                        <img src="/images/placeholder-dress.jpg" alt="Denim Jacket" />
+                        <div class="product-overlay">
+                            <a href="#" class="btn-view-details">
+                                <i class="fas fa-eye"></i> View Details
+                            </a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Vintage Denim Jacket</h3>
+                        <p class="product-category">Classic denim jacket with vintage wash and modern fit</p>
+                        <div class="product-price">
+                            <span class="price-current">$69.99</span>
+                            <span class="price-original">$89.99</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge bestseller">Best Seller</span>
+                        <img src="/images/placeholder-dress.jpg" alt="Silk Scarf" />
+                        <div class="product-overlay">
+                            <a href="#" class="btn-view-details">
+                                <i class="fas fa-eye"></i> View Details
+                            </a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Luxury Silk Scarf</h3>
+                        <p class="product-category">Premium silk scarf with artistic print and versatile styling</p>
+                        <div class="product-price">
+                            <span class="price-current">$39.99</span>
+                            <span class="price-original">$59.99</span>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
         
         <div class="section-footer">
-            <a href="@Url.Action("BestSellers", "Shop")" class="btn btn-outline">View All Best Sellers</a>
+            <a href="@Url.Action("BestSellers", "Shop")" class="btn-outline">
+                <i class="fas fa-star"></i> View All Best Sellers
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Special Offers Section -->
+<section class="special-offers-section" style="padding: 80px 0; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+    <div class="container">
+        <div class="section-header" style="margin-bottom: 60px;">
+            <h2 style="color: white;">Limited Time Offers</h2>
+            <p style="color: rgba(255,255,255,0.9);">Don't miss out on these exclusive deals and seasonal promotions</p>
+        </div>
+        
+        <div class="offers-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px;">
+            <div class="offer-card" style="background: rgba(255,255,255,0.1); border-radius: 20px; padding: 40px; text-align: center; backdrop-filter: blur(10px); transition: all 0.3s ease;">
+                <div style="width: 80px; height: 80px; background: linear-gradient(45deg, #ff6b6b, #ffa500); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 32px;">
+                    <i class="fas fa-percentage"></i>
+                </div>
+                <h3 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 15px;">Summer Sale</h3>
+                <p style="color: rgba(255,255,255,0.8); margin-bottom: 20px; line-height: 1.6;">Up to 50% off on selected summer collection items. Limited time only!</p>
+                <a href="@Url.Action("Products", "Shop")" class="btn" style="background: white; color: #333; padding: 12px 30px; border-radius: 25px; text-decoration: none; font-weight: 600;">Shop Sale</a>
+            </div>
+            
+            <div class="offer-card" style="background: rgba(255,255,255,0.1); border-radius: 20px; padding: 40px; text-align: center; backdrop-filter: blur(10px); transition: all 0.3s ease;">
+                <div style="width: 80px; height: 80px; background: linear-gradient(45deg, #4ecdc4, #44a08d); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 32px;">
+                    <i class="fas fa-truck"></i>
+                </div>
+                <h3 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 15px;">Free Shipping</h3>
+                <p style="color: rgba(255,255,255,0.8); margin-bottom: 20px; line-height: 1.6;">Free shipping on all orders over $100. Fast and secure delivery worldwide.</p>
+                <a href="@Url.Action("Products", "Shop")" class="btn" style="background: white; color: #333; padding: 12px 30px; border-radius: 25px; text-decoration: none; font-weight: 600;">Start Shopping</a>
+            </div>
         </div>
     </div>
 </section>
@@ -200,33 +346,83 @@ cursor/fix-product-details-and-update-branding-fb72
     <div class="container">
         <div class="section-header">
             <h2>Follow Us on Instagram</h2>
-                            <p>Tag your photos with #ArtTouchStyle for a chance to be featured!</p>
+            <p style="color: rgba(255,255,255,0.9);">Tag your photos with #ArtTouchStyle for a chance to be featured in our gallery!</p>
         </div>
         
         <div class="instagram-grid">
             <div class="instagram-item">
-                <img src="/images/instagram-1.jpg" alt="Instagram Post" />
+                <img src="/images/placeholder-dress.jpg" alt="Instagram Post" />
+                <div class="instagram-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; opacity: 0; transition: all 0.3s ease;">
+                    <i class="fab fa-instagram" style="font-size: 2rem; color: white;"></i>
+                </div>
             </div>
             <div class="instagram-item">
-                <img src="/images/instagram-2.jpg" alt="Instagram Post" />
+                <img src="/images/placeholder-dress.jpg" alt="Instagram Post" />
+                <div class="instagram-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; opacity: 0; transition: all 0.3s ease;">
+                    <i class="fab fa-instagram" style="font-size: 2rem; color: white;"></i>
+                </div>
             </div>
             <div class="instagram-item">
-                <img src="/images/instagram-3.jpg" alt="Instagram Post" />
+                <img src="/images/placeholder-dress.jpg" alt="Instagram Post" />
+                <div class="instagram-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; opacity: 0; transition: all 0.3s ease;">
+                    <i class="fab fa-instagram" style="font-size: 2rem; color: white;"></i>
+                </div>
             </div>
             <div class="instagram-item">
-                <img src="/images/instagram-4.jpg" alt="Instagram Post" />
+                <img src="/images/placeholder-dress.jpg" alt="Instagram Post" />
+                <div class="instagram-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; opacity: 0; transition: all 0.3s ease;">
+                    <i class="fab fa-instagram" style="font-size: 2rem; color: white;"></i>
+                </div>
             </div>
             <div class="instagram-item">
-                <img src="/images/instagram-5.jpg" alt="Instagram Post" />
+                <img src="/images/placeholder-dress.jpg" alt="Instagram Post" />
+                <div class="instagram-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; opacity: 0; transition: all 0.3s ease;">
+                    <i class="fab fa-instagram" style="font-size: 2rem; color: white;"></i>
+                </div>
             </div>
             <div class="instagram-item">
-                <img src="/images/instagram-6.jpg" alt="Instagram Post" />
+                <img src="/images/placeholder-dress.jpg" alt="Instagram Post" />
+                <div class="instagram-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; opacity: 0; transition: all 0.3s ease;">
+                    <i class="fab fa-instagram" style="font-size: 2rem; color: white;"></i>
+                </div>
             </div>
         </div>
         
         <div class="section-footer">
-                            <a href="#" class="btn btn-instagram">Follow @@ArtTouchGallery</a>
+            <a href="#" class="btn-instagram">
+                <i class="fab fa-instagram"></i> Follow @ArtTouchGallery
+            </a>
         </div>
     </div>
 </section>
+
+<style>
+    .instagram-item {
+        position: relative;
+    }
+    
+    .instagram-item:hover .instagram-overlay {
+        opacity: 1;
+    }
+    
+    .offer-card:hover {
+        transform: translateY(-5px);
+        background: rgba(255,255,255,0.15);
+    }
+    
+    @media (max-width: 768px) {
+        .offers-grid {
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        
+        .offer-card {
+            padding: 30px;
+        }
+        
+        .offer-card h3 {
+            font-size: 1.5rem;
+        }
+    }
+</style>
 
